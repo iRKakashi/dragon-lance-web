@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="test-panel">
+        <h2>🎵 Music System Test</h2>
+        <p>This test verifies that the music files can be loaded and played correctly.</p>
+        
+        <div id="status" class="status info">Ready to test...</div>
+        
+        <h3>Background Music</h3>
+        <button onclick="testBackgroundMusic()">Test Background Music</button>
+        <button onclick="stopBackgroundMusic()">Stop Background Music</button>
+        
+        <h3>Battle Music</h3>
+        <button onclick="testBattleMusic1()">Test Battle Music 1</button>
+        <button onclick="testBattleMusic2()">Test Battle Music 2</button>
+        <button onclick="stopBattleMusic()">Stop Battle Music</button>
+        
+        <h3>Volume Control</h3>
+        <button onclick="setVolume(0.1)">10% Volume</button>
+        <button onclick="setVolume(0.3)">30% Volume</button>
+        <button onclick="setVolume(0.5)">50% Volume</button>
+        
+        <div id="debug-info" style="margin-top: 20px; font-size: 12px; color: #666;">
+            <h4>Debug Information:</h4>
+            <div id="debug-output"></div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="background-music" loop>
+        <source src="assets/fantasy-ambient.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="battle-music-1" loop>
+        <source src="assets/Battlemusic1.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="battle-music-2" loop>
+        <source src="assets/Battlemusic2.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const debugOutput = document.getElementById('debug-output');
+        
+        const backgroundMusic = document.getElementById('background-music');
+        const battleMusic1 = document.getElementById('battle-music-1');
+        const battleMusic2 = document.getElementById('battle-music-2');
+        
+        let currentAudio = null;
+        
+        function updateStatus(message, type = 'info') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+        
+        function debugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugOutput.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            debugOutput.scrollTop = debugOutput.scrollHeight;
+        }
+        
+        function testBackgroundMusic() {
+            stopAllMusic();
+            currentAudio = backgroundMusic;
+            backgroundMusic.volume = 0.3;
+            
+            backgroundMusic.play().then(() => {
+                updateStatus('✅ Background music playing successfully!', 'success');
+                debugLog('Background music started');
+            }).catch(error => {
+                updateStatus(`❌ Failed to play background music: ${error.message}`, 'error');
+                debugLog(`Background music error: ${error.message}`);
+            });
+        }
+        
+        function stopBackgroundMusic() {
+            if (backgroundMusic) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+                updateStatus('Background music stopped', 'info');
+                debugLog('Background music stopped');
+            }
+        }
+        
+        function testBattleMusic1() {
+            stopAllMusic();
+            currentAudio = battleMusic1;
+            battleMusic1.volume = 0.4;
+            
+            battleMusic1.play().then(() => {
+                updateStatus('⚔️ Battle music 1 playing successfully!', 'success');
+                debugLog('Battle music 1 started');
+            }).catch(error => {
+                updateStatus(`❌ Failed to play battle music 1: ${error.message}`, 'error');
+                debugLog(`Battle music 1 error: ${error.message}`);
+            });
+        }
+        
+        function testBattleMusic2() {
+            stopAllMusic();
+            currentAudio = battleMusic2;
+            battleMusic2.volume = 0.4;
+            
+            battleMusic2.play().then(() => {
+                updateStatus('⚔️ Battle music 2 playing successfully!', 'success');
+                debugLog('Battle music 2 started');
+            }).catch(error => {
+                updateStatus(`❌ Failed to play battle music 2: ${error.message}`, 'error');
+                debugLog(`Battle music 2 error: ${error.message}`);
+            });
+        }
+        
+        function stopBattleMusic() {
+            if (battleMusic1) {
+                battleMusic1.pause();
+                battleMusic1.currentTime = 0;
+            }
+            if (battleMusic2) {
+                battleMusic2.pause();
+                battleMusic2.currentTime = 0;
+            }
+            updateStatus('Battle music stopped', 'info');
+            debugLog('Battle music stopped');
+        }
+        
+        function stopAllMusic() {
+            stopBackgroundMusic();
+            stopBattleMusic();
+        }
+        
+        function setVolume(volume) {
+            if (currentAudio) {
+                currentAudio.volume = volume;
+                updateStatus(`Volume set to ${Math.round(volume * 100)}%`, 'info');
+                debugLog(`Volume set to ${Math.round(volume * 100)}%`);
+            } else {
+                updateStatus('No audio currently playing', 'error');
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            debugLog('Music test initialized');
+            
+            // Test file loading
+            [backgroundMusic, battleMusic1, battleMusic2].forEach((audio, index) => {
+                const names = ['Background Music', 'Battle Music 1', 'Battle Music 2'];
+                
+                audio.addEventListener('canplaythrough', () => {
+                    debugLog(`✅ ${names[index]} loaded successfully`);
+                });
+                
+                audio.addEventListener('error', (e) => {
+                    debugLog(`❌ ${names[index]} failed to load: ${e.message}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

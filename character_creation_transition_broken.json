@@ -1,0 +1,144 @@
+[
+  {
+    "entry_id": 100,
+    "title": "Your Story Begins",
+    "text": "*[This entry appears after character creation is complete and adapts based on player choices]*\n---\n### Base Narrative\nThe gods' own light filters through the ancient vallenwood trees as you make your final preparations for the journey ahead. Your reflection in the still waters of Crystalmir Lake shows a face marked by determination and the weight of destiny. The world of Krynn spreads before you, filled with wonder and peril in equal measure.\n### Species-Specific Text",
+    "conditionals": [
+      {
+        "condition": "HUMAN",
+        "text": "Your human heritage has given you the adaptability to thrive in any environment, and you feel the restless energy of your people driving you toward new horizons. The versatility that defines humanity will serve you well in the trials ahead."
+      },
+      {
+        "condition": "ELF - QUALINESTI",
+        "text": "The grace of your Qualinesti heritage flows through your movements, and you carry the wisdom of the forests in your heart. Your keen senses detect nuances in the world that others might miss, a gift that has saved many of your kind."
+      },
+      {
+        "condition": "ELF - SILVANESTI",
+        "text": "The ancient pride of Silvanesti burns within you, along with a deep connection to the natural world that your people have protected for millennia. Your refined features mark you as one of the eldest races, bearer of secrets lost to time."
+      },
+      {
+        "condition": "DWARF - HILL DWARF",
+        "text": "Your sturdy frame and keen eye for detail mark you as one of the Hill Dwarves, practical folk who value craftsmanship and community above all else. The mountains have shaped your people's character as surely as hammer shapes steel."
+      },
+      {
+        "condition": "DWARF - MOUNTAIN DWARF",
+        "text": "The strength of the mountains courses through your veins, and your people's legendary skill with both forge and blade is evident in your bearing. You carry the proud traditions of the Mountain Dwarves into an uncertain world."
+      },
+      {
+        "condition": "KENDER",
+        "text": "Your small stature belies an enormous curiosity and an irrepressible optimism that has gotten you into\u2014and out of\u2014more trouble than most people see in a lifetime. The wanderlust of your people calls to you like a siren's song."
+      },
+      {
+        "condition": "GNOME",
+        "text": "Your diminutive size is matched by an oversized intellect and an insatiable curiosity about how the world works. The inventive spirit of your people has led to both miraculous discoveries and spectacular failures. ### Class-Specific Text"
+      },
+      {
+        "condition": "FIGHTER",
+        "text": "Your weapons rest comfortably at your side, extensions of your will honed through countless hours of training. The scars on your hands tell stories of battles fought and victories earned through skill and determination."
+      },
+      {
+        "condition": "WIZARD",
+        "text": "The arcane energies respond to your call, and you feel the weight of your spellbook\u2014a repository of knowledge that represents years of study and practice. The mysteries of magic beckon to you like old friends."
+      },
+      {
+        "condition": "CLERIC",
+        "text": "Your holy symbol pulses with divine warmth, a tangible connection to the god you serve. The power of faith flows through you, ready to heal the wounded and smite the wicked in equal measure."
+      },
+      {
+        "condition": "ROGUE",
+        "text": "Your fingers automatically check your hidden blades and lockpicks, tools of a trade that has kept you alive in situations where others would have perished. The shadows are your allies, and silence your closest companion."
+      },
+      {
+        "condition": "PALADIN",
+        "text": "The sacred oaths you have sworn burn bright in your heart, and your armor gleams with the light of righteousness. You are a beacon of hope in a world that desperately needs champions of justice. ### Background-Specific Text"
+      },
+      {
+        "condition": "KNIGHT OF SOLAMNIA",
+        "text": "The Code and the Measure guide your every action, and you wear the symbol of the Knights of Solamnia with pride. Your oath to protect the innocent and uphold justice weighs heavier than any armor."
+      },
+      {
+        "condition": "MAGE OF HIGH SORCERY",
+        "text": "The Test of High Sorcery has marked you forever, and you bear the responsibility of your magical order with solemn dignity. The Towers of High Sorcery may be distant, but their influence shapes your every spell."
+      },
+      {
+        "condition": "MERCENARY",
+        "text": "Your pragmatic nature and hard-won experience have taught you that coin and contracts are often more reliable than honor and heroism. Yet something deeper stirs within you, calling you to a greater purpose."
+      },
+      {
+        "condition": "NOBLE",
+        "text": "Your noble birth has provided you with education, resources, and connections that others can only dream of. With privilege comes responsibility, and you feel the weight of your family's expectations."
+      },
+      {
+        "condition": "OUTLANDER",
+        "text": "The wild places of the world have been your teacher, and you carry the wisdom of untamed lands in your heart. Civilization feels strange and confining after the freedom of the wilderness. ---"
+      }
+    ],
+    "choices": []
+  },
+  {
+    "entry_id": 101,
+    "title": "The Call to Adventure",
+    "text": "*[Continuation of the transition sequence]*\nThe morning mist clings to the ground as you shoulder your pack and check your gear one final time. \n**What draws you forward:**\nA) The promise of gold and glory \nB) A desire to right the wrongs of the world \nC) Simple curiosity about what lies beyond the horizon \nD) A mysterious dream that has been calling to you \n---",
+    "conditionals": [
+      {
+        "condition": "SPECIES IS KENDER",
+        "text": "Your pouches jingle with interesting items you've \"found\" over the years, though you're sure their original owners wouldn't mind parting with them for such a good cause as your upcoming adventure."
+      },
+      {
+        "condition": "CLASS IS WIZARD OR CLERIC",
+        "text": "You run through your mental catalog of spells, feeling the familiar tingle of magical energy at your fingertips."
+      },
+      {
+        "condition": "BACKGROUND IS KNIGHT OF SOLAMNIA",
+        "text": "You pause to polish your armor one final time, ensuring that you present a proper image of knightly virtue to the world."
+      },
+      {
+        "condition": "BACKGROUND IS OUTLANDER",
+        "text": "The call of the wild road feels more natural than any civilized path, and you're eager to leave the confines of settlement behind. The path ahead leads to the crossroads outside Solace, where three roads diverge and countless possibilities await. Your character sheet is complete, your destiny unwritten, and the chronicles of Krynn ready to welcome a new hero. As you take your first steps toward adventure, you feel the weight of prophecy settling around you like a familiar cloak. The gods are stirring, magic pulses through the world with renewed vigor, and heroes are needed now more than ever."
+      }
+    ],
+    "choices": [
+      {
+        "label": "Your pouches jingle with interesting items you've \"found\" over the years, though you're sure their original owners wouldn't mind parting with them for such a good cause as your upcoming adventure. **[IF CLASS IS WIZARD OR CLERIC]** You run through your mental catalog of spells, feeling the familiar tingle of magical energy at your fingertips. **[IF BACKGROUND IS KNIGHT OF SOLAMNIA]** You pause to polish your armor one final time, ensuring that you present a proper image of knightly virtue to the world. **[IF BACKGROUND IS OUTLANDER]** The call of the wild road feels more natural than any civilized path, and you're eager to leave the confines of settlement behind. The path ahead leads to the crossroads outside Solace, where three roads diverge and countless possibilities await. Your character sheet is complete, your destiny unwritten, and the chronicles of Krynn ready to welcome a new hero. As you take your first steps toward adventure, you feel the weight of prophecy settling around you like a familiar cloak. The gods are stirring, magic pulses through the world with renewed vigor, and heroes are needed now more than ever. **What draws you forward:** A) The promise of gold and glory",
+        "destination_entry_id": 1
+      }
+    ]
+  },
+  {
+    "entry_id": 102,
+    "title": "The World Awaits",
+    "text": "*[Final transition entry before main adventure begins]*\nYour choice reveals something fundamental about your character's motivation, but regardless of what drives you forward, the road to Solace stretches ahead with infinite possibilities. \n**Are you ready to begin your legend?**\nA) Yes, let the adventure commence! \nB) Take one last moment to reflect on your choices \nC) Review your character details before proceeding (\u2192 Return to Character Creation Summary)\nD) Begin your journey with confidence \n---\n## Implementation Notes\n**Modular Text System:**\n- Each section uses conditional statements [IF SPECIES/CLASS/BACKGROUND] to insert appropriate text\n- Base narrative remains consistent while personal details adapt to player choices\n- Multiple conditions can be combined (e.g., [IF SPECIES IS KENDER AND CLASS IS ROGUE])\n**Transition Flow:**\n- Entry 100: Character completion and world-building\n- Entry 101: Motivation and final preparations\n- Entry 102: Final transition into main adventure\n**Technical Requirements:**\n- JavaScript/programming implementation should track all character creation variables\n- Text blocks should be stored in arrays/objects keyed to character choices\n- Fallback text should be provided for any unrecognized combinations\nThis system ensures every player feels their character choices matter while maintaining narrative coherence and smooth transition into the main adventure.",
+    "conditionals": [
+      {
+        "condition": "SPECIES IS ELF",
+        "text": "Your elven heritage allows you to appreciate both the immediate beauty of the moment and the longer view of how your actions might echo through the centuries."
+      },
+      {
+        "condition": "SPECIES IS DWARF",
+        "text": "Your dwarven practicality reminds you to check your coin purse and your weapon's edge\u2014both will serve you well in the days ahead."
+      },
+      {
+        "condition": "CLASS IS PALADIN OR CLERIC",
+        "text": "You offer a brief prayer to your deity, asking for guidance and strength for the trials ahead."
+      },
+      {
+        "condition": "CLASS IS ROGUE",
+        "text": "You automatically scan your surroundings for potential threats, exits, and opportunities\u2014old habits that have kept you alive this long."
+      },
+      {
+        "condition": "BACKGROUND IS MAGE OF HIGH SORCERY",
+        "text": "You feel the weight of responsibility that comes with your magical training, knowing that your actions reflect on your order."
+      },
+      {
+        "condition": "BACKGROUND IS MERCENARY",
+        "text": "Your experienced eye evaluates the potential risks and rewards of the path ahead, calculating odds with the precision of a seasoned professional. The autumn wind carries hints of change, and you sense that the world itself is holding its breath, waiting for heroes to step forward and shape the future. Your story is about to begin in earnest, and the choices you make will ripple across the face of Krynn like stones cast into still water."
+      }
+    ],
+    "choices": [
+      {
+        "label": "Your elven heritage allows you to appreciate both the immediate beauty of the moment and the longer view of how your actions might echo through the centuries. **[IF SPECIES IS DWARF]** Your dwarven practicality reminds you to check your coin purse and your weapon's edge\u2014both will serve you well in the days ahead. **[IF CLASS IS PALADIN OR CLERIC]** You offer a brief prayer to your deity, asking for guidance and strength for the trials ahead. **[IF CLASS IS ROGUE]** You automatically scan your surroundings for potential threats, exits, and opportunities\u2014old habits that have kept you alive this long. **[IF BACKGROUND IS MAGE OF HIGH SORCERY]** You feel the weight of responsibility that comes with your magical training, knowing that your actions reflect on your order. **[IF BACKGROUND IS MERCENARY]** Your experienced eye evaluates the potential risks and rewards of the path ahead, calculating odds with the precision of a seasoned professional. The autumn wind carries hints of change, and you sense that the world itself is holding its breath, waiting for heroes to step forward and shape the future. Your story is about to begin in earnest, and the choices you make will ripple across the face of Krynn like stones cast into still water. **Are you ready to begin your legend?** A) Yes, let the adventure commence!",
+        "destination_entry_id": 1
+      }
+    ]
+  }
+]

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragonlance: Chronicles of Krynn</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-layer"></div>
+    
+    <div class="main-container">
+        <header class="title-header">
+            <!-- Game Controls - Positioned to the right of title -->
+            <div class="game-controls-top">
+                <button id="restart-game" class="control-button control-button--restart" title="Restart Adventure">
+                    <span class="button-icon">🔄</span>
+                    <span class="button-text">Restart</span>
+                </button>
+                <button id="save-game" class="control-button control-button--save" title="Save Progress">
+                    <span class="button-icon">💾</span>
+                    <span class="button-text">Save</span>
+                </button>
+                <button id="load-game" class="control-button control-button--load" title="Load Progress">
+                    <span class="button-icon">📜</span>
+                    <span class="button-text">Load</span>
+                </button>
+                <button id="music-toggle" class="control-button control-button--music" title="Click to Enable Background Music">
+                    <span class="button-icon music-icon">🎵</span>
+                    <span class="button-text">Music</span>
+                    <span class="music-status-indicator"></span>
+                </button>
+            </div>
+            
+            <h1 class="main-title">Dragonlance</h1>
+            <h2 class="subtitle">Chronicles of Krynn</h2>
+            <div class="title-ornament">⚔️ 🐉 ⚔️</div>
+        </header>
+
+        <main class="game-layout">
+            <!-- Character Status Panel -->
+            <aside class="character-panel">
+                <h3 class="panel-title">Your Character</h3>
+                <div class="character-details">
+                    <div class="character-stat character-stat--species">
+                        <span class="stat-label">
+                            <span class="stat-icon">🏛️</span>
+                            Species:
+                        </span>
+                        <span id="species" class="stat-value">Not Selected</span>
+                    </div>
+                    <div class="character-stat character-stat--class">
+                        <span class="stat-label">
+                            <span class="stat-icon">⚔️</span>
+                            Class:
+                        </span>
+                        <span id="class" class="stat-value">Not Selected</span>
+                        <div id="subclass-details" class="subclass-details hidden"></div>
+                    </div>
+                    <div class="character-stat character-stat--background">
+                        <span class="stat-label">
+                            <span class="stat-icon">📜</span>
+                            Background:
+                        </span>
+                        <span id="background" class="stat-value">Not Selected</span>
+                    </div>
+                    <div id="character-progression" class="character-progression hidden">
+                        <div class="stat-label">
+                            <span class="stat-icon">✨</span>
+                            Level & Experience:
+                        </div>
+                        <div class="progression-info">
+                            <span id="character-level" class="level-display">Level 1</span>
+                            <span id="character-xp" class="xp-display">0 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Story Book Area -->
+            <section class="story-book">
+                <div class="story-entry">
+                    <h2 id="entry-title" class="entry-title">Welcome to Krynn</h2>
+                    
+                    <div class="story-content">
+                        <div id="entry-narrative" class="narrative-text">
+                            <p>Loading your adventure...</p>
+                        </div>
+                        
+                        <div id="conditional-text" class="conditional-text"></div>
+                    </div>
+                </div>
+                
+                <!-- Choice Area -->
+                <div id="choices-container" class="choice-area">
+                    <!-- Choices will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Skill Check Modal -->
+    <div id="skill-check-modal" class="modal-overlay hidden">
+        <div class="skill-check-modal">
+            <div class="modal-header">
+                <h3 id="skill-check-title" class="modal-title">Skill Check Required</h3>
+                <div class="modal-ornament">⚡</div>
+            </div>
+            
+            <div class="modal-content">
+                <p id="skill-check-description" class="skill-description">
+                    You need to make a skill check.
+                </p>
+                
+                <div class="skill-info-panel">
+                    <div class="skill-detail">
+                        <span class="skill-label">Skill:</span>
+                        <span id="skill-name" class="skill-value">Survival</span>
+                    </div>
+                    <div class="skill-detail">
+                        <span class="skill-label">Difficulty:</span>
+                        <span id="skill-dc" class="skill-value">15</span>
+                    </div>
+                </div>
+                
+                <button id="roll-skill-check" class="dice-button dice-button--enhanced">
+                    <span class="dice-icon dice-icon--animated">🎲</span>
+                    <span class="dice-text">Roll the Dice</span>
+                    <span class="dice-sparkle">✨</span>
+                </button>
+                
+                <div id="skill-check-result" class="skill-result hidden">
+                    <div class="result-scroll">
+                        <p id="roll-result" class="result-text"></p>
+                        <button id="skill-check-continue" class="continue-button">Continue Adventure</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="assets/fantasy-ambient.mp3" type="audio/mpeg">
+        <!-- Fallback for browsers that don't support MP3 -->
+        <source src="assets/fantasy-ambient.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- Battle Music -->
+    <audio id="battle-music-1" loop>
+        <source src="assets/Battlemusic1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="battle-music-2" loop>
+        <source src="assets/Battlemusic2.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="game-engine.js"></script>
+</body>
+</html>

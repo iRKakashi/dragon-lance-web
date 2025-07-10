@@ -1,0 +1,295 @@
+{
+  "entries": {
+    "species_selection": {
+      "id": "species_selection",
+      "title": "Choose Your Heritage",
+      "narrative": "The blood that flows through your veins carries the heritage of one of Krynn's great peoples. Each race brings its own strengths, perspectives, and place in the world's grand tapestry.",
+      "choices": [
+        {
+          "text": "Human - Adaptable and ambitious, the most numerous of Krynn's peoples",
+          "destination": "class_selection",
+          "sets": {"species": "Human"}
+        },
+        {
+          "text": "Qualinesti Elf - Forest-dwelling elves known for their grace and wisdom",
+          "destination": "class_selection",
+          "sets": {"species": "Qualinesti Elf"}
+        },
+        {
+          "text": "Silvanesti Elf - Ancient and proud elves with deep magical traditions",
+          "destination": "class_selection",
+          "sets": {"species": "Silvanesti Elf"}
+        },
+        {
+          "text": "Hill Dwarf - Hardy mountain folk skilled in craftsmanship and community",
+          "destination": "class_selection",
+          "sets": {"species": "Hill Dwarf"}
+        },
+        {
+          "text": "Mountain Dwarf - Warrior-smiths from the highest peaks",
+          "destination": "class_selection",
+          "sets": {"species": "Mountain Dwarf"}
+        },
+        {
+          "text": "Kender - Small, curious wanderers with boundless optimism",
+          "destination": "class_selection",
+          "sets": {"species": "Kender"}
+        },
+        {
+          "text": "Gnome - Tiny inventors with insatiable curiosity",
+          "destination": "class_selection",
+          "sets": {"species": "Gnome"}
+        }
+      ]
+    },
+    "class_selection": {
+      "id": "class_selection",
+      "title": "Choose Your Path",
+      "narrative": "Your training and calling have shaped you into a particular type of hero. Your class determines your abilities and role in the world.",
+      "choices": [
+        {
+          "text": "Fighter - Master of weapons and tactics, skilled in all forms of combat",
+          "destination": "background_selection",
+          "sets": {"class": "Fighter"}
+        },
+        {
+          "text": "Wizard - Scholar of arcane magic, wielder of the power of the Towers",
+          "destination": "background_selection",
+          "sets": {"class": "Wizard"}
+        },
+        {
+          "text": "Cleric - Divine spellcaster, blessed channel of the gods' power",
+          "destination": "background_selection",
+          "sets": {"class": "Cleric"}
+        },
+        {
+          "text": "Sorcerer - Born with innate magic flowing through your veins",
+          "destination": "sorcerer_specialization",
+          "sets": {"class": "Sorcerer"}
+        },
+        {
+          "text": "Warlock - Bound by a pact with otherworldly entities for power",
+          "destination": "warlock_specialization",
+          "sets": {"class": "Warlock"}
+        },
+        {
+          "text": "Rogue - Master of stealth, skilled in the subtle arts",
+          "destination": "background_selection",
+          "sets": {"class": "Rogue"}
+        },
+        {
+          "text": "Paladin - Holy warrior, champion of justice and righteousness",
+          "destination": "background_selection",
+          "sets": {"class": "Paladin"}
+        }
+      ]
+    },
+    "background_selection": {
+      "id": "background_selection",
+      "title": "Choose Your History",
+      "narrative": "Your past experiences have shaped who you are today. Your background provides skills, connections, and a place in the world's social fabric.",
+      "choices": [
+        {
+          "text": "Knight of Solamnia - Sworn to the Code and the Measure",
+          "destination": "100",
+          "sets": {"background": "Knight of Solamnia"}
+        },
+        {
+          "text": "Mage of High Sorcery - Tested by the orders of magic",
+          "destination": "100",
+          "sets": {"background": "Mage of High Sorcery"}
+        },
+        {
+          "text": "Mercenary - Experienced in the harsh realities of paid warfare",
+          "destination": "100",
+          "sets": {"background": "Mercenary"}
+        },
+        {
+          "text": "Noble - Born to privilege and responsibility",
+          "destination": "100",
+          "sets": {"background": "Noble"}
+        },
+        {
+          "text": "Outlander - Raised in the wild places of the world",
+          "destination": "100",
+          "sets": {"background": "Outlander"}
+        }
+      ]
+    },
+    "sorcerer_specialization": {
+      "id": "sorcerer_specialization",
+      "title": "Choose Your Magical Origin",
+      "narrative": "Sorcerous magic flows through your being, but its source shapes how your power manifests. In the world of Krynn, different bloodlines and cosmic forces can awaken magical potential.",
+      "choices": [
+        {
+          "text": "Draconic Bloodline - Ancient dragon magic flows in your veins",
+          "destination": "background_selection",
+          "sets": {"class": "Sorcerer", "subclass": "Draconic Bloodline"}
+        },
+        {
+          "text": "Wild Magic - Chaotic forces of magic surge unpredictably within you",
+          "destination": "background_selection",
+          "sets": {"class": "Sorcerer", "subclass": "Wild Magic"}
+        },
+        {
+          "text": "Moon Sorcerer - Blessed by Solinari's silver light and lunar mysteries",
+          "destination": "background_selection",
+          "sets": {"class": "Moon Sorcerer", "subclass": "Lunar Magic"}
+        },
+        {
+          "text": "Divine Soul - Touched by the power of the gods themselves",
+          "destination": "background_selection",
+          "sets": {"class": "Sorcerer", "subclass": "Divine Soul"}
+        }
+      ]
+    },
+    "warlock_specialization": {
+      "id": "warlock_specialization",
+      "title": "Choose Your Otherworldly Patron",
+      "narrative": "Your magical power comes from a pact made with an entity from beyond the mortal realm. In Krynn, such beings range from ancient dragons to mysterious forces from the planes of existence.",
+      "choices": [
+        {
+          "text": "The Great Wyrm - Bound to an ancient and powerful dragon",
+          "destination": "background_selection",
+          "sets": {"class": "Warlock", "subclass": "Great Wyrm Patron"}
+        },
+        {
+          "text": "The Archfey - Pledged to a powerful fey lord from the Feywild",
+          "destination": "background_selection",
+          "sets": {"class": "Warlock", "subclass": "Archfey"}
+        },
+        {
+          "text": "The Fiend - Contracted with a devil or demon for forbidden power",
+          "destination": "background_selection",
+          "sets": {"class": "Warlock", "subclass": "Fiend"}
+        },
+        {
+          "text": "The Undying - Bound to an ancient lich or undead entity",
+          "destination": "background_selection",
+          "sets": {"class": "Warlock", "subclass": "Undying"}
+        },
+        {
+          "text": "The Stellar Powers - Connected to the cosmic forces beyond Krynn",
+          "destination": "background_selection",
+          "sets": {"class": "Warlock", "subclass": "Stellar Patron"}
+        }
+      ]
+    },
+    "100": {
+      "id": "100",
+      "title": "Your Story Begins",
+      "narrative": "The gods' own light filters through the ancient vallenwood trees as you make your final preparations for the journey ahead. Your reflection in the still waters of Crystalmir Lake shows a face marked by determination and the weight of destiny. The world of Krynn spreads before you, filled with wonder and peril in equal measure.",
+      "conditional_text": {
+        "species": {
+          "Human": "Your human heritage has given you the adaptability to thrive in any environment, and you feel the restless energy of your people driving you toward new horizons. The versatility that defines humanity will serve you well in the trials ahead.",
+          "Qualinesti Elf": "The grace of your Qualinesti heritage flows through your movements, and you carry the wisdom of the forests in your heart. Your keen senses detect nuances in the world that others might miss, a gift that has saved many of your kind.",
+          "Silvanesti Elf": "The ancient pride of Silvanesti burns within you, along with a deep connection to the natural world that your people have protected for millennia. Your refined features mark you as one of the eldest races, bearer of secrets lost to time.",
+          "Hill Dwarf": "Your sturdy frame and keen eye for detail mark you as one of the Hill Dwarves, practical folk who value craftsmanship and community above all else. The mountains have shaped your people's character as surely as hammer shapes steel.",
+          "Mountain Dwarf": "The strength of the mountains courses through your veins, and your people's legendary skill with both forge and blade is evident in your bearing. You carry the proud traditions of the Mountain Dwarves into an uncertain world.",
+          "Kender": "Your small stature belies an enormous curiosity and an irrepressible optimism that has gotten you into—and out of—more trouble than most people see in a lifetime. The wanderlust of your people calls to you like a siren's song.",
+          "Gnome": "Your diminutive size is matched by an oversized intellect and an insatiable curiosity about how the world works. The inventive spirit of your people has led to both miraculous discoveries and spectacular failures."
+        },
+        "class": {
+          "Fighter": "Your weapons rest comfortably at your side, extensions of your will honed through countless hours of training. The scars on your hands tell stories of battles fought and victories earned through skill and determination.",
+          "Wizard": "The arcane energies respond to your call, and you feel the weight of your spellbook—a repository of knowledge that represents years of study and practice. The mysteries of magic beckon to you like old friends.",
+          "Cleric": "Your holy symbol pulses with divine warmth, a tangible connection to the god you serve. The power of faith flows through you, ready to heal the wounded and smite the wicked in equal measure.",
+          "Sorcerer": "Magic flows through your very essence like a second heartbeat, raw and powerful. Unlike wizards who study spells, your magic comes from within, shaped by emotion and will.",
+          "Moon Sorcerer": "The silver light of Solinari courses through your veins, and you feel the pull of lunar cycles in your magic. Your connection to the moon grants you insights into the ebb and flow of mystical energies.",
+          "Warlock": "The weight of your otherworldly pact presses upon your soul, a constant reminder of the price paid for power. Your patron's influence whispers at the edges of your consciousness, offering strength in exchange for service.",
+          "Rogue": "Your fingers automatically check your hidden blades and lockpicks, tools of a trade that has kept you alive in situations where others would have perished. The shadows are your allies, and silence your closest companion.",
+          "Paladin": "The sacred oaths you have sworn burn bright in your heart, and your armor gleams with the light of righteousness. You are a beacon of hope in a world that desperately needs champions of justice."
+        },
+        "background": {
+          "Knight of Solamnia": "The Code and the Measure guide your every action, and you wear the symbol of the Knights of Solamnia with pride. Your oath to protect the innocent and uphold justice weighs heavier than any armor.",
+          "Mage of High Sorcery": "The Test of High Sorcery has marked you forever, and you bear the responsibility of your magical order with solemn dignity. The Towers of High Sorcery may be distant, but their influence shapes your every spell.",
+          "Mercenary": "Your pragmatic nature and hard-won experience have taught you that coin and contracts are often more reliable than honor and heroism. Yet something deeper stirs within you, calling you to a greater purpose.",
+          "Noble": "Your noble birth has provided you with education, resources, and connections that others can only dream of. With privilege comes responsibility, and you feel the weight of your family's expectations.",
+          "Outlander": "The wild places of the world have been your teacher, and you carry the wisdom of untamed lands in your heart. Civilization feels strange and confining after the freedom of the wilderness."
+        }
+      },
+      "choices": [
+        {
+          "text": "Continue to the adventure",
+          "destination": "101"
+        }
+      ]
+    },
+    "101": {
+      "id": "101",
+      "title": "The Call to Adventure",
+      "narrative": "The morning mist clings to the ground as you shoulder your pack and check your gear one final time.",
+      "conditional_text": {
+        "species": {
+          "Kender": "Your pouches jingle with interesting items you've 'found' over the years, though you're sure their original owners wouldn't mind parting with them for such a good cause as your upcoming adventure."
+        },
+        "class": {
+          "Wizard": "You run through your mental catalog of spells, feeling the familiar tingle of magical energy at your fingertips.",
+          "Cleric": "You run through your mental catalog of spells, feeling the familiar tingle of divine energy at your fingertips.",
+          "Sorcerer": "You flex your fingers and feel the raw magic crackling just beneath your skin, ready to be shaped by your will.",
+          "Moon Sorcerer": "You glance up at the sky, feeling Solinari's influence even during daylight, your lunar magic humming in harmony with celestial movements.",
+          "Warlock": "You unconsciously touch the mark of your pact, feeling your patron's power coursing through you like a dark river."
+        },
+        "background": {
+          "Knight of Solamnia": "You pause to polish your armor one final time, ensuring that you present a proper image of knightly virtue to the world.",
+          "Outlander": "The call of the wild road feels more natural than any civilized path, and you're eager to leave the confines of settlement behind."
+        }
+      },
+      "narrative_continuation": "The path ahead leads to the crossroads outside Solace, where three roads diverge and countless possibilities await. Your character sheet is complete, your destiny unwritten, and the chronicles of Krynn ready to welcome a new hero. As you take your first steps toward adventure, you feel the weight of prophecy settling around you like a familiar cloak. The gods are stirring, magic pulses through the world with renewed vigor, and heroes are needed now more than ever.",
+      "choices": [
+        {
+          "text": "The promise of gold and glory draws you forward",
+          "destination": "1"
+        },
+        {
+          "text": "A desire to right the wrongs of the world motivates you",
+          "destination": "1"
+        },
+        {
+          "text": "Simple curiosity about what lies beyond the horizon",
+          "destination": "1"
+        },
+        {
+          "text": "A mysterious dream that has been calling to you",
+          "destination": "1"
+        }
+      ]
+    },
+    "102": {
+      "id": "102",
+      "title": "The World Awaits",
+      "narrative": "Your choice reveals something fundamental about your character's motivation, but regardless of what drives you forward, the road to Solace stretches ahead with infinite possibilities.",
+      "conditional_text": {
+        "species": {
+          "Qualinesti Elf": "Your elven heritage allows you to appreciate both the immediate beauty of the moment and the longer view of how your actions might echo through the centuries.",
+          "Silvanesti Elf": "Your elven heritage allows you to appreciate both the immediate beauty of the moment and the longer view of how your actions might echo through the centuries.",
+          "Hill Dwarf": "Your dwarven practicality reminds you to check your coin purse and your weapon's edge—both will serve you well in the days ahead.",
+          "Mountain Dwarf": "Your dwarven practicality reminds you to check your coin purse and your weapon's edge—both will serve you well in the days ahead."
+        },
+        "class": {
+          "Paladin": "You offer a brief prayer to your deity, asking for guidance and strength for the trials ahead.",
+          "Cleric": "You offer a brief prayer to your deity, asking for guidance and strength for the trials ahead.",
+          "Rogue": "You automatically scan your surroundings for potential threats, exits, and opportunities—old habits that have kept you alive this long."
+        },
+        "background": {
+          "Mage of High Sorcery": "You feel the weight of responsibility that comes with your magical training, knowing that your actions reflect on your order.",
+          "Mercenary": "Your experienced eye evaluates the potential risks and rewards of the path ahead, calculating odds with the precision of a seasoned professional."
+        }
+      },
+      "narrative_continuation": "The autumn wind carries hints of change, and you sense that the world itself is holding its breath, waiting for heroes to step forward and shape the future. Your story is about to begin in earnest, and the choices you make will ripple across the face of Krynn like stones cast into still water.",
+      "choices": [
+        {
+          "text": "Yes, let the adventure commence!",
+          "destination": "1"
+        },
+        {
+          "text": "Take one last moment to reflect on your choices",
+          "destination": "101"
+        },
+        {
+          "text": "Begin your journey with confidence",
+          "destination": "1"
+        }
+      ]
+    }
+  }
+}

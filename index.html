@@ -17,8 +17,12 @@
     
     <div class="main-container">
         <header class="title-header">
-            <!-- Game Controls - Positioned to the right of title -->
-            <div class="game-controls-top">
+            <div class="corner top-left"></div>
+            <h1 class="main-title">Dragonlance</h1>
+            <h2 class="subtitle">Chronicles of Krynn</h2>
+            
+            <!-- Game Controls - Centered horizontally under title -->
+            <div class="game-controls-center">
                 <button id="restart-game" class="control-button control-button--restart" title="Restart Adventure">
                     <span class="button-icon">🔄</span>
                     <span class="button-text">Restart</span>
@@ -37,10 +41,6 @@
                     <span class="music-status-indicator"></span>
                 </button>
             </div>
-            
-            <h1 class="main-title">Dragonlance</h1>
-            <h2 class="subtitle">Chronicles of Krynn</h2>
-            <div class="title-ornament">⚔️ 🐉 ⚔️</div>
         </header>
 
         <main class="game-layout">
@@ -85,6 +85,7 @@
 
             <!-- Main Story Book Area -->
             <section class="story-book">
+                <div class="corner top-left"></div>
                 <div class="story-entry">
                     <h2 id="entry-title" class="entry-title">Welcome to Krynn</h2>
                     
@@ -146,21 +147,9 @@
         </div>
     </div>
 
-    <!-- Background Music -->
-    <audio id="background-music" loop>
-        <source src="assets/fantasy-ambient.mp3" type="audio/mpeg">
-        <!-- Fallback for browsers that don't support MP3 -->
-        <source src="assets/fantasy-ambient.ogg" type="audio/ogg">
-    </audio>
+    <!-- Audio elements will be created dynamically by the music system -->
 
-    <!-- Battle Music -->
-    <audio id="battle-music-1" loop>
-        <source src="assets/Battlemusic1.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="battle-music-2" loop>
-        <source src="assets/Battlemusic2.mp3" type="audio/mpeg">
-    </audio>
-
+    <script src="logger.js"></script>
     <script src="game-engine.js"></script>
 </body>
 </html>

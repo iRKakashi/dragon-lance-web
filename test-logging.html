@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Logging System</title>
+</head>
+<body>
+    <h1>Test Logging System</h1>
+    <button onclick="testLogging()">Test Logging</button>
+    <button onclick="gameLogger.exportLogs()">Export Logs</button>
+    <button onclick="showLogs()">Show Recent Logs</button>
+    <div id="log-output"></div>
+    
+    <script src="logger.js"></script>
+    <script>
+        function testLogging() {
+            gameLogger.info('Test logging message');
+            gameLogger.error('Test error message');
+            gameLogger.debug('Test debug message');
+            gameLogger.logGameEvent('TEST_EVENT', { test: 'data' });
+            console.log('Regular console log');
+        }
+        
+        function showLogs() {
+            const logs = gameLogger.getLogs();
+            const output = document.getElementById('log-output');
+            output.innerHTML = '<h3>Recent Logs:</h3><pre>' + 
+                logs.slice(-10).map(log => `[${log.level}] ${log.message}`).join('\n') + 
+                '</pre>';
+        }
+        
+        // Test on load
+        window.addEventListener('load', () => {
+            gameLogger.info('Test page loaded');
+        });
+    </script>
+</body>
+</html>

@@ -16,8 +16,27 @@ class DragonlanceGame {
             level: 1,
             musicEnabled: false, // Start disabled due to browser autoplay restrictions
             inBattle: false,
-            currentBattleTrack: null
+            currentBattleTrack: null,
+            currentAmbientTrack: 0,
+            currentBattleTrackIndex: 0
         };
+        
+        // Music playlists
+        this.ambientPlaylist = [
+            'assets/Music/Ambiance/HarpAmbientMusic-Vindsvept-The Fae.mp3',
+            'assets/Music/Ambiance/AMbientRoad.mp3',
+            'assets/Music/Ambiance/AbientSkyrim.mp3',
+            'assets/Music/Ambiance/HarvestdawnAmbiance.mp3'
+        ];
+        
+        this.battlePlaylist = [
+            'assets/Music/Battle music/Battlemusic1.mp3',
+            'assets/Music/Battle music/Battlemusic2.mp3'
+        ];
+        
+        // Audio elements for playlists
+        this.ambientAudioElements = [];
+        this.battleAudioElements = [];
         
         this.init();
     }
@@ -70,54 +89,112 @@ class DragonlanceGame {
         document.getElementById('roll-skill-check').addEventListener('click', () => this.rollSkillCheck());
         document.getElementById('skill-check-continue').addEventListener('click', () => this.continueFromSkillCheck());
         
-        // Initialize background music
-        this.backgroundMusic = document.getElementById('background-music');
-        if (this.backgroundMusic) {
-            this.backgroundMusic.volume = 0.3; // Set to 30% volume
-            this.backgroundMusic.addEventListener('canplaythrough', () => {
-                console.log('Background music loaded and ready to play');
-                // Show visual indicator that music is available
-                this.showMusicPrompt();
-            });
-            this.backgroundMusic.addEventListener('error', (e) => {
-                console.log('Background music failed to load:', e);
-                this.hideMusicButton();
-            });
-            this.backgroundMusic.addEventListener('ended', () => {
-                // Restart music when it ends (backup to loop attribute)
-                if (this.gameState.musicEnabled && !this.gameState.inBattle) {
-                    this.backgroundMusic.currentTime = 0;
-                    this.backgroundMusic.play();
-                }
+        // Initialize music playlists
+        this.initializeMusicPlaylists();
+    }
+
+    initializeMusicPlaylists() {
+        gameLogger.info('Initializing music playlists...');
+        
+        // Create ambient music audio elements
+        this.ambientPlaylist.forEach((src, index) => {
+            const audio = document.createElement('audio');
+            audio.src = src;
+            audio.volume = 0.3;
+            audio.preload = 'none'; // Don't preload to save bandwidth
+            
+            // Add ended event listener for playlist progression
+            audio.addEventListener('ended', () => {
+                this.playNextAmbientTrack();
             });
             
-            // Update button to show initial state (will be corrected by canplaythrough event)
-            this.updateMusicButton();
-        } else {
-            console.log('Background music element not found');
-        }
+            audio.addEventListener('error', (e) => {
+                gameLogger.error(`Ambient track ${index + 1} failed to load:`, e);
+            });
+            
+            // First track shows music is ready
+            if (index === 0) {
+                audio.addEventListener('canplaythrough', () => {
+                    gameLogger.info('First ambient track loaded and ready to play');
+                    this.showMusicPrompt();
+                });
+            }
+            
+            this.ambientAudioElements.push(audio);
+        });
+        
+        // Create battle music audio elements
+        this.battlePlaylist.forEach((src, index) => {
+            const audio = document.createElement('audio');
+            audio.src = src;
+            audio.volume = 0.4;
+            audio.preload = 'none';
+            
+            // Add ended event listener for playlist progression
+            audio.addEventListener('ended', () => {
+                this.playNextBattleTrack();
+            });
+            
+            audio.addEventListener('error', (e) => {
+                gameLogger.error(`Battle track ${index + 1} failed to load:`, e);
+            });
+            
+            this.battleAudioElements.push(audio);
+        });
+        
+        // Set current tracks
+        this.currentAmbientAudio = this.ambientAudioElements[0];
+        this.currentBattleAudio = this.battleAudioElements[0];
+        
+        gameLogger.info(`Music system initialized: ${this.ambientPlaylist.length} ambient tracks, ${this.battlePlaylist.length} battle tracks`);
+    }
 
-        // Initialize battle music
-        this.battleMusic1 = document.getElementById('battle-music-1');
-        this.battleMusic2 = document.getElementById('battle-music-2');
+    playNextAmbientTrack() {
+        if (!this.gameState.musicEnabled || this.gameState.inBattle) return;
         
-        if (this.battleMusic1) {
-            this.battleMusic1.volume = 0.4; // Slightly louder for battle intensity
-            this.battleMusic1.addEventListener('error', (e) => {
-                console.log('Battle music 1 failed to load:', e);
-            });
+        // Stop current track
+        if (this.currentAmbientAudio) {
+            this.currentAmbientAudio.pause();
+            this.currentAmbientAudio.currentTime = 0;
         }
         
-        if (this.battleMusic2) {
-            this.battleMusic2.volume = 0.4; // Slightly louder for battle intensity
-            this.battleMusic2.addEventListener('error', (e) => {
-                console.log('Battle music 2 failed to load:', e);
-            });
+        // Move to next track
+        this.gameState.currentAmbientTrack = (this.gameState.currentAmbientTrack + 1) % this.ambientPlaylist.length;
+        this.currentAmbientAudio = this.ambientAudioElements[this.gameState.currentAmbientTrack];
+        
+        gameLogger.info(`Playing next ambient track: ${this.gameState.currentAmbientTrack + 1}/${this.ambientPlaylist.length}`);
+        
+        // Play next track
+        this.currentAmbientAudio.play().catch(error => {
+            gameLogger.error('Could not play next ambient track:', error);
+        });
+    }
+
+    playNextBattleTrack() {
+        if (!this.gameState.musicEnabled || !this.gameState.inBattle) return;
+        
+        // Stop current track
+        if (this.currentBattleAudio) {
+            this.currentBattleAudio.pause();
+            this.currentBattleAudio.currentTime = 0;
         }
+        
+        // Move to next track
+        this.gameState.currentBattleTrackIndex = (this.gameState.currentBattleTrackIndex + 1) % this.battlePlaylist.length;
+        this.currentBattleAudio = this.battleAudioElements[this.gameState.currentBattleTrackIndex];
+        
+        gameLogger.info(`Playing next battle track: ${this.gameState.currentBattleTrackIndex + 1}/${this.battlePlaylist.length}`);
+        
+        // Play next track
+        this.currentBattleAudio.play().catch(error => {
+            gameLogger.error('Could not play next battle track:', error);
+        });
     }
 
     loadEntry(entryId) {
-        console.log(`Loading entry: ${entryId}`);
+        gameLogger.info(`Loading entry: ${entryId}`);
+        gameLogger.info('Character data available:', !!this.characterData);
+        gameLogger.info('Adventure data available:', !!this.adventureData);
         
         // First check character creation entries
         if (this.characterData && this.characterData.entries && this.characterData.entries[entryId]) {
@@ -138,8 +215,9 @@ class DragonlanceGame {
     }
 
     displayEntry() {
+        gameLogger.info('displayEntry called with current entry:', this.currentEntry?.id);
         if (!this.currentEntry) {
-            console.error('No current entry to display');
+            gameLogger.error('No current entry to display');
             return;
         }
 
@@ -228,31 +306,338 @@ class DragonlanceGame {
             return;
         }
 
-        this.currentEntry.choices.forEach((choice, index) => {
-            const button = document.createElement('button');
-            button.className = 'choice-button';
-            button.textContent = choice.text;
-            
-            button.addEventListener('click', () => {
-                this.handleChoice(choice, index);
-            });
+        // Check if this is the species selection entry
+        const isSpeciesSelection = this.currentEntry.id === 'species_selection';
+        
+        if (isSpeciesSelection) {
+            this.displayRaceSelectionUI();
+        } else {
+            // Regular choice buttons for non-race selection
+            this.currentEntry.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.className = 'choice-button';
+                button.innerHTML = `
+                    <div class="corner top-left"></div>
+                    ${choice.text}
+                `;
+                
+                button.addEventListener('click', () => {
+                    this.handleChoice(choice, index);
+                });
 
-            choicesContainer.appendChild(button);
+                choicesContainer.appendChild(button);
+            });
+        }
+    }
+
+    displayRaceSelectionUI() {
+        const choicesContainer = document.getElementById('choices-container');
+        choicesContainer.className = 'choice-area race-selection-area';
+        
+        // Enhanced race data with rich D&D lore descriptions
+        this.raceData = {
+            'Human': {
+                image: 'assets/Images/HumanRace.png',
+                icon: '🏛️',
+                subtitle: 'The Ambitious Wanderers',
+                description: 'Adaptable and ambitious, humans thrive in every corner of Krynn, shaping the world through sheer determination.',
+                traits: [
+                    'Versatile culture & values',
+                    'Extra skill or feat flexibility',
+                    'Broad class compatibility',
+                    'Found in every region of Krynn'
+                ]
+            },
+            'Qualinesti Elf': {
+                image: 'assets/Images/Elf-QualinestiRace.png',
+                icon: '🌿',
+                subtitle: 'The Woodland Speakers',
+                description: 'Golden-haired forest dwellers who bridge the gap between elven and human worlds. They value diplomacy and natural harmony above all.',
+                traits: [
+                    'Keen senses & fey ancestry',
+                    'Longsword & longbow proficiency',
+                    'Natural diplomats & woodland guides',
+                    'Immunity to magical sleep effects'
+                ]
+            },
+            'Silvanesti Elf': {
+                image: 'assets/Images/Elf-SylvanestiRace.png',
+                icon: '✨',
+                subtitle: 'The Ancient Nobles',
+                description: 'Proud and ancient, the silver-haired Silvanesti consider themselves the pinnacle of elven civilization. Their mastery of magic is legendary.',
+                traits: [
+                    'Ancient magical heritage',
+                    'Longsword & longbow proficiency',
+                    'Centuries of accumulated wisdom',
+                    'Natural resistance to enchantments'
+                ]
+            },
+            'Hill Dwarf': {
+                image: 'assets/Images/HillDwarvesRace.png',
+                icon: '⛏️',
+                subtitle: 'The Merchant Craftsmen',
+                description: 'Practical and outgoing, hill dwarves are master craftsmen and traders who build communities alongside humans. Their honest nature makes them valued allies.',
+                traits: [
+                    'Exceptional constitution & poison resistance',
+                    'Battleaxe & warhammer proficiency',
+                    'Master craftsmen & skilled traders',
+                    'Darkvision & natural stoneworking'
+                ]
+            },
+            'Mountain Dwarf': {
+                image: 'assets/Images/MountainDwarvesRace.png',
+                icon: '🏔️',
+                subtitle: 'The Forge Masters',
+                description: 'Militaristic and traditional, mountain dwarves dwell in underground cities carved from living rock. They are master smiths creating legendary weapons and armor.',
+                traits: [
+                    'Natural armor proficiency & weapon training',
+                    'Battleaxe & warhammer proficiency',
+                    'Master smiths & underground engineers',
+                    'Darkvision & resistance to poison'
+                ]
+            },
+            'Kender': {
+                image: 'assets/Images/KenderRace.png',
+                icon: '🎒',
+                subtitle: 'The Fearless Wanderers',
+                description: 'Small, childlike beings with insatiable curiosity and complete fearlessness. Their "borrowing" habits and storytelling talents often lead to unexpected adventures.',
+                traits: [
+                    'Completely immune to fear effects',
+                    'Natural skill with slings & lockpicking',
+                    'Incredible luck & knack for finding things',
+                    'Taunt ability to distract enemies'
+                ]
+            },
+            'Gnome': {
+                image: 'assets/Images/GnomesRace.png',
+                icon: '🔬',
+                subtitle: 'The Tinker Sages',
+                description: 'Small, intelligent beings with endless fascination for learning and invention. Natural tinkerers and scholars, equally at home in laboratories or libraries.',
+                traits: [
+                    'Natural affinity for illusion magic',
+                    'Proficiency with tinker tools & alchemy',
+                    'Keen intellect & scholarly pursuits',
+                    'Small size advantage & gnomish cunning'
+                ]
+            }
+        };
+
+        // Create the race selection container
+        const raceSelectionContainer = document.createElement('div');
+        raceSelectionContainer.className = 'race-selection-container';
+
+        // Create the race list
+        const raceList = document.createElement('div');
+        raceList.className = 'race-list';
+
+        // Create race options
+        this.currentEntry.choices.forEach((choice, index) => {
+            const speciesName = choice.text.split(' - ')[0];
+            const raceInfo = this.raceData[speciesName];
+            
+            if (raceInfo) {
+                const raceOption = document.createElement('div');
+                raceOption.className = 'race-option';
+                raceOption.innerHTML = `
+                    <div class="corner top-left"></div>
+                    <div class="race-icon">${raceInfo.icon}</div>
+                    <div class="race-name">${speciesName}</div>
+                `;
+
+                // Add click handler to open modal
+                raceOption.addEventListener('click', () => {
+                    this.openRaceModal(speciesName, raceInfo, choice, index);
+                });
+
+                raceList.appendChild(raceOption);
+            }
+        });
+
+        // Assemble the UI
+        raceSelectionContainer.appendChild(raceList);
+        choicesContainer.appendChild(raceSelectionContainer);
+
+        // Create the modal (initially hidden)
+        this.createRaceModal();
+    }
+
+    createRaceModal() {
+        // Create modal overlay
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'race-modal-overlay';
+        modalOverlay.id = 'race-modal-overlay';
+        
+        // Create modal content
+        modalOverlay.innerHTML = `
+            <div class="race-modal">
+                <div class="race-modal-header">
+                    <button class="race-modal-close" id="race-modal-close">×</button>
+                    <h2 class="race-modal-title" id="race-modal-title">Race Name</h2>
+                    <p class="race-modal-subtitle" id="race-modal-subtitle">Subtitle</p>
+                </div>
+                <div class="race-modal-image-container">
+                    <img src="" alt="" class="race-modal-image" id="race-modal-image">
+                </div>
+                <div class="race-modal-content">
+                    <p class="race-modal-description" id="race-modal-description">Description</p>
+                    <div class="race-modal-traits">
+                        <div class="race-modal-traits-title">Racial Traits</div>
+                        <ul class="race-modal-traits-list" id="race-modal-traits-list">
+                        </ul>
+                    </div>
+                </div>
+                <div class="race-modal-actions">
+                    <button class="race-modal-button race-modal-button--primary" id="race-modal-choose">
+                        Choose this Race
+                    </button>
+                    <button class="race-modal-button race-modal-button--secondary" id="race-modal-back">
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(modalOverlay);
+        
+        // Store reference
+        this.raceModalOverlay = modalOverlay;
+        
+        // Add event listeners
+        this.setupRaceModalListeners();
+    }
+
+    setupRaceModalListeners() {
+        const overlay = this.raceModalOverlay;
+        const closeBtn = overlay.querySelector('#race-modal-close');
+        const backBtn = overlay.querySelector('#race-modal-back');
+        const chooseBtn = overlay.querySelector('#race-modal-choose');
+        
+        // Close modal handlers
+        const closeModal = () => {
+            this.closeRaceModal();
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        backBtn.addEventListener('click', closeModal);
+        
+        // Close when clicking outside modal
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+        
+        // ESC key handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        // Choose race handler
+        chooseBtn.addEventListener('click', (e) => {
+            gameLogger.info('Choose race button clicked!');
+            e.preventDefault();
+            e.stopPropagation();
+            this.selectRace();
         });
     }
 
-    handleChoice(choice, index) {
-        console.log('Choice selected:', choice);
+    openRaceModal(raceName, raceInfo, choice, index) {
+        gameLogger.info('Opening race modal for:', raceName);
+        gameLogger.info('Choice data received:', choice);
+        gameLogger.info('Index received:', index);
+        
+        // Store current selection
+        this.currentRaceSelection = {
+            name: raceName,
+            info: raceInfo,
+            choice: choice,
+            index: index
+        };
+        
+        console.log('Stored currentRaceSelection:', this.currentRaceSelection);
+        
+        // Update modal content
+        const modal = this.raceModalOverlay;
+        const title = modal.querySelector('#race-modal-title');
+        const subtitle = modal.querySelector('#race-modal-subtitle');
+        const image = modal.querySelector('#race-modal-image');
+        const description = modal.querySelector('#race-modal-description');
+        const traitsList = modal.querySelector('#race-modal-traits-list');
+        
+        title.textContent = raceName;
+        subtitle.textContent = raceInfo.subtitle;
+        image.src = raceInfo.image;
+        image.alt = `${raceName} portrait`;
+        description.textContent = raceInfo.description;
+        
+        // Populate traits
+        traitsList.innerHTML = '';
+        raceInfo.traits.forEach(trait => {
+            const li = document.createElement('li');
+            li.textContent = trait;
+            traitsList.appendChild(li);
+        });
+        
+        // Show modal
+        modal.classList.add('active');
+        document.body.classList.add('modal-open');
+    }
 
-        // Disable all choice buttons to prevent multiple clicks
+    closeRaceModal() {
+        gameLogger.info('Closing race modal');
+        const modal = this.raceModalOverlay;
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+        
+        // Clear selection (but only after a delay to allow selectRace to complete)
+        setTimeout(() => {
+            gameLogger.info('Clearing currentRaceSelection');
+            this.currentRaceSelection = null;
+        }, 100);
+    }
+
+    selectRace() {
+        if (!this.currentRaceSelection) {
+            gameLogger.error('No race selection found - this should not happen!');
+            return;
+        }
+        
+        gameLogger.info('Selecting race:', this.currentRaceSelection.name);
+        gameLogger.info('Choice object:', this.currentRaceSelection.choice);
+        
+        // Store the selected race
+        this.selectedRace = this.currentRaceSelection.name;
+        
+        // Close modal
+        this.closeRaceModal();
+        
+        // Handle the choice
+        gameLogger.info('About to call handleChoice with:', this.currentRaceSelection.choice, this.currentRaceSelection.index);
+        this.handleChoice(this.currentRaceSelection.choice, this.currentRaceSelection.index);
+    }
+
+    handleChoice(choice, index) {
+        gameLogger.info('handleChoice called with choice:', choice);
+        gameLogger.info('handleChoice called with index:', index);
+
+        // Disable all choice buttons and race options to prevent multiple clicks
         const buttons = document.querySelectorAll('.choice-button');
         buttons.forEach(btn => btn.disabled = true);
+        
+        const raceOptions = document.querySelectorAll('.race-option');
+        raceOptions.forEach(option => {
+            option.style.pointerEvents = 'none';
+            option.style.opacity = '0.6';
+        });
 
         // Handle character creation choices that set state
         if (choice.sets) {
             Object.keys(choice.sets).forEach(key => {
                 this.gameState[key] = choice.sets[key];
-                console.log(`Set ${key} to ${choice.sets[key]}`);
+                gameLogger.info(`Set ${key} to ${choice.sets[key]}`);
             });
             this.updateCharacterDisplay();
         }
@@ -265,9 +650,13 @@ class DragonlanceGame {
 
         // Navigate to destination
         if (choice.destination) {
+            gameLogger.info('Navigating to destination:', choice.destination);
             setTimeout(() => {
+                gameLogger.info('Loading entry:', choice.destination);
                 this.loadEntry(choice.destination);
             }, 500);
+        } else {
+            gameLogger.error('No destination found in choice:', choice);
         }
     }
 
@@ -412,8 +801,8 @@ class DragonlanceGame {
         if (confirm('Are you sure you want to restart? All progress will be lost.')) {
             // Stop all music before resetting
             this.endBattleMusic();
-            if (this.backgroundMusic && !this.backgroundMusic.paused) {
-                this.backgroundMusic.pause();
+            if (this.currentAmbientAudio && !this.currentAmbientAudio.paused) {
+                this.currentAmbientAudio.pause();
             }
             
             this.gameState = {
@@ -427,14 +816,21 @@ class DragonlanceGame {
                 level: 1,
                 musicEnabled: false,
                 inBattle: false,
-                currentBattleTrack: null
+                currentBattleTrack: null,
+                currentAmbientTrack: 0,
+                currentBattleTrackIndex: 0
             };
+            
+            // Reset current audio references
+            this.currentAmbientAudio = this.ambientAudioElements[0];
+            this.currentBattleAudio = this.battleAudioElements[0];
+            
             this.updateCharacterDisplay();
             this.loadEntry('species_selection');
             
             // Restart music if it was enabled
             setTimeout(() => {
-                if (this.gameState.musicEnabled && this.backgroundMusic) {
+                if (this.gameState.musicEnabled && this.currentAmbientAudio) {
                     this.playMusic();
                 }
             }, 500);
@@ -480,23 +876,22 @@ class DragonlanceGame {
 
         this.gameState.inBattle = true;
         
-        // Pause background music
-        if (this.backgroundMusic && !this.backgroundMusic.paused) {
-            this.backgroundMusic.pause();
+        // Pause ambient music
+        if (this.currentAmbientAudio && !this.currentAmbientAudio.paused) {
+            this.currentAmbientAudio.pause();
         }
 
-        // Randomly select battle track
-        const randomTrack = Math.random() < 0.5 ? this.battleMusic1 : this.battleMusic2;
-        const trackNumber = randomTrack === this.battleMusic1 ? 1 : 2;
+        // Start with first battle track or continue from current
+        this.currentBattleAudio = this.battleAudioElements[this.gameState.currentBattleTrackIndex];
         
-        if (randomTrack) {
-            this.gameState.currentBattleTrack = trackNumber;
-            randomTrack.currentTime = 0; // Start from beginning
-            randomTrack.play().then(() => {
-                console.log(`⚔️ Battle music ${trackNumber} started!`);
+        if (this.currentBattleAudio) {
+            this.gameState.currentBattleTrack = this.gameState.currentBattleTrackIndex + 1;
+            this.currentBattleAudio.currentTime = 0; // Start from beginning
+            this.currentBattleAudio.play().then(() => {
+                gameLogger.info(`⚔️ Battle music ${this.gameState.currentBattleTrack} started!`);
                 this.updateMusicButtonForBattle();
             }).catch(error => {
-                console.log('Could not play battle music:', error);
+                gameLogger.error('Could not play battle music:', error);
             });
         }
     }
@@ -505,30 +900,28 @@ class DragonlanceGame {
         this.gameState.inBattle = false;
         this.gameState.currentBattleTrack = null;
 
-        // Stop both battle tracks
-        if (this.battleMusic1 && !this.battleMusic1.paused) {
-            this.battleMusic1.pause();
-            this.battleMusic1.currentTime = 0;
-        }
-        if (this.battleMusic2 && !this.battleMusic2.paused) {
-            this.battleMusic2.pause();
-            this.battleMusic2.currentTime = 0;
-        }
+        // Stop all battle tracks
+        this.battleAudioElements.forEach(audio => {
+            if (audio && !audio.paused) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
 
-        // Resume background music if enabled
-        if (this.gameState.musicEnabled && this.backgroundMusic) {
-            this.backgroundMusic.play().then(() => {
-                console.log('🎵 Ambient music resumed');
+        // Resume ambient music if enabled
+        if (this.gameState.musicEnabled && this.currentAmbientAudio) {
+            this.currentAmbientAudio.play().then(() => {
+                gameLogger.info('🎵 Ambient music resumed');
                 this.updateMusicButton();
             }).catch(error => {
-                console.log('Could not resume background music:', error);
+                gameLogger.error('Could not resume ambient music:', error);
             });
         }
     }
 
     getCurrentBattleTrack() {
-        if (!this.gameState.inBattle || !this.gameState.currentBattleTrack) return null;
-        return this.gameState.currentBattleTrack === 1 ? this.battleMusic1 : this.battleMusic2;
+        if (!this.gameState.inBattle || !this.currentBattleAudio) return null;
+        return this.currentBattleAudio;
     }
 
     toggleMusic() {
@@ -548,16 +941,16 @@ class DragonlanceGame {
     }
 
     playMusic() {
-        if (this.backgroundMusic) {
-            this.backgroundMusic.play().then(() => {
+        if (this.currentAmbientAudio) {
+            this.currentAmbientAudio.play().then(() => {
                 this.gameState.musicEnabled = true;
                 this.updateMusicButton();
-                console.log('🎵 Background music started automatically');
+                gameLogger.info('🎵 Ambient music started automatically');
             }).catch(error => {
-                console.log('Could not auto-play background music:', error);
+                gameLogger.error('Could not auto-play ambient music:', error);
                 // Show user-friendly message for autoplay restrictions
                 if (error.name === 'NotAllowedError') {
-                    console.log('Autoplay prevented - user interaction required');
+                    gameLogger.info('Autoplay prevented - user interaction required');
                     this.showMusicPrompt();
                     // Keep musicEnabled true so it will play when user clicks
                     this.gameState.musicEnabled = true;
@@ -568,12 +961,21 @@ class DragonlanceGame {
     }
 
     pauseMusic() {
-        if (this.backgroundMusic) {
-            this.backgroundMusic.pause();
-            this.gameState.musicEnabled = false;
-            this.updateMusicButton();
-            console.log('Background music paused');
+        // Pause ambient music
+        if (this.currentAmbientAudio) {
+            this.currentAmbientAudio.pause();
         }
+        
+        // Pause all battle music
+        this.battleAudioElements.forEach(audio => {
+            if (audio && !audio.paused) {
+                audio.pause();
+            }
+        });
+        
+        this.gameState.musicEnabled = false;
+        this.updateMusicButton();
+        gameLogger.info('All music paused');
     }
 
     updateMusicButton() {
@@ -587,13 +989,13 @@ class DragonlanceGame {
         if (this.gameState.musicEnabled) {
             icon.textContent = '🔇';
             text.textContent = 'Mute';
-            musicButton.title = 'Mute Background Music';
+            musicButton.title = `Mute Ambient Music (Track ${this.gameState.currentAmbientTrack + 1}/${this.ambientPlaylist.length})`;
             musicButton.classList.add('playing');
             if (indicator) indicator.style.background = '#44ff44';
         } else {
             icon.textContent = '🎵';
             text.textContent = 'Music';
-            musicButton.title = 'Click to Enable Background Music';
+            musicButton.title = 'Click to Enable Ambient Music';
             musicButton.classList.remove('playing');
             if (indicator) indicator.style.background = '#ff4444';
         }
@@ -610,7 +1012,7 @@ class DragonlanceGame {
         if (this.gameState.musicEnabled && this.gameState.inBattle) {
             icon.textContent = '⚔️';
             text.textContent = 'Battle';
-            musicButton.title = `Battle Music ${this.gameState.currentBattleTrack} Playing`;
+            musicButton.title = `Battle Music ${this.gameState.currentBattleTrack}/${this.battlePlaylist.length} Playing`;
             musicButton.classList.add('playing');
             if (indicator) {
                 indicator.style.background = '#ff6b35'; // Orange for battle music

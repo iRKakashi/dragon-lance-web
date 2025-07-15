@@ -2002,6 +2002,550 @@ body.modal-open {
     scrollbar-color: var(--color-gold) var(--color-aged-parchment);
 }
 
+/* === CHARACTER BUILDER MODAL === */
+.character-builder-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.character-builder-modal {
+    background: linear-gradient(135deg, var(--color-parchment) 0%, var(--color-aged-parchment) 100%);
+    border: var(--border-ornate);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    max-width: 900px;
+    width: 100%;
+    max-height: 95vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.character-builder-header {
+    text-align: center;
+    padding: 30px 30px 20px;
+    border-bottom: 2px solid var(--color-gold);
+    background: linear-gradient(135deg, var(--color-aged-parchment) 0%, var(--color-dark-parchment) 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.character-builder-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-crimson);
+    text-shadow: var(--shadow-text);
+    margin-bottom: 10px;
+}
+
+.character-builder-subtitle {
+    font-family: var(--font-elegant);
+    font-size: 1.2rem;
+    color: var(--color-rich-brown);
+    font-style: italic;
+    margin: 0;
+}
+
+.character-builder-content {
+    padding: 30px;
+}
+
+.character-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--color-gold);
+    border-radius: 15px;
+    box-shadow: var(--shadow-inset);
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--color-crimson);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    font-size: 1.6rem;
+}
+
+/* Character Name Section */
+.name-input-container {
+    position: relative;
+}
+
+.character-name-input {
+    width: 100%;
+    padding: 15px 20px;
+    font-family: var(--font-elegant);
+    font-size: 1.2rem;
+    background: var(--color-parchment);
+    border: 2px solid var(--color-gold);
+    border-radius: 10px;
+    color: var(--color-deep-brown);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-inset);
+}
+
+.character-name-input:focus {
+    outline: none;
+    border-color: var(--color-bright-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+.character-name-input::placeholder {
+    color: var(--color-rich-brown);
+    font-style: italic;
+}
+
+.name-validation-message {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--color-crimson);
+    font-style: italic;
+}
+
+/* Race Selection Display */
+.selected-race-display {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background: var(--color-parchment);
+    border: 2px solid var(--color-gold);
+    border-radius: 10px;
+    box-shadow: var(--shadow-inset);
+}
+
+.race-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.race-portrait-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-gold);
+    background: var(--color-aged-parchment);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.race-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.race-details {
+    flex: 1;
+}
+
+.race-name {
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    color: var(--color-crimson);
+    margin: 0 0 5px 0;
+}
+
+.race-subtitle {
+    font-family: var(--font-elegant);
+    font-size: 1rem;
+    color: var(--color-rich-brown);
+    margin: 0;
+    font-style: italic;
+}
+
+.change-selection-btn {
+    padding: 10px 20px;
+    font-family: var(--font-elegant);
+    font-size: 1rem;
+    background: var(--color-gold);
+    color: var(--color-deep-brown);
+    border: 2px solid var(--color-deep-brown);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.change-selection-btn:hover {
+    background: var(--color-bright-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Ability Scores Section */
+.score-method-selection {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.score-method-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-elegant);
+    font-size: 1.1rem;
+    color: var(--color-rich-brown);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.score-method-label:hover {
+    color: var(--color-crimson);
+}
+
+.score-method-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-gold);
+}
+
+.ability-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ability-score {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background: var(--color-parchment);
+    border: 2px solid var(--color-gold);
+    border-radius: 10px;
+    box-shadow: var(--shadow-inset);
+}
+
+.ability-label {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    color: var(--color-crimson);
+    font-weight: 600;
+}
+
+.ability-select {
+    padding: 8px 12px;
+    font-family: var(--font-elegant);
+    font-size: 1.1rem;
+    background: var(--color-aged-parchment);
+    border: 2px solid var(--color-gold);
+    border-radius: 6px;
+    color: var(--color-deep-brown);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.ability-select:focus {
+    outline: none;
+    border-color: var(--color-bright-gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.ability-modifier {
+    font-family: var(--font-elegant);
+    font-size: 1rem;
+    color: var(--color-rich-brown);
+    font-weight: 600;
+    text-align: center;
+}
+
+.score-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.score-action-btn {
+    padding: 10px 20px;
+    font-family: var(--font-elegant);
+    font-size: 1rem;
+    background: var(--color-silver);
+    color: var(--color-deep-brown);
+    border: 2px solid var(--color-deep-brown);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.score-action-btn:hover {
+    background: var(--color-dark-silver);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.4);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Character Builder Actions */
+.character-builder-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 30px 30px;
+    border-top: 2px solid var(--color-gold);
+    background: linear-gradient(135deg, var(--color-aged-parchment) 0%, var(--color-dark-parchment) 100%);
+    border-radius: 0 0 20px 20px;
+}
+
+.character-builder-btn {
+    padding: 15px 30px;
+    font-family: var(--font-elegant);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.character-builder-btn--primary {
+    background: var(--color-gold);
+    color: var(--color-deep-brown);
+    border-color: var(--color-deep-brown);
+}
+
+.character-builder-btn--primary:hover {
+    background: var(--color-bright-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.character-builder-btn--secondary {
+    background: var(--color-silver);
+    color: var(--color-deep-brown);
+    border-color: var(--color-deep-brown);
+}
+
+.character-builder-btn--secondary:hover {
+    background: var(--color-dark-silver);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(192, 192, 192, 0.4);
+}
+
+.character-builder-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.character-builder-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsive Design for Character Builder */
+@media (max-width: 768px) {
+    .character-builder-modal {
+        margin: 10px;
+        max-height: 90vh;
+    }
+    
+    .character-builder-title {
+        font-size: 2rem;
+    }
+    
+    .ability-scores-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .character-builder-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .character-builder-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .score-method-selection {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* === ABILITY SCORES MODAL === */
+.ability-scores-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.ability-scores-modal {
+    background: linear-gradient(135deg, var(--color-parchment) 0%, var(--color-aged-parchment) 100%);
+    border: var(--border-ornate);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.ability-scores-header {
+    text-align: center;
+    padding: 30px 30px 20px;
+    border-bottom: 2px solid var(--color-gold);
+    background: linear-gradient(135deg, var(--color-aged-parchment) 0%, var(--color-dark-parchment) 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.ability-scores-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-crimson);
+    text-shadow: var(--shadow-text);
+    margin-bottom: 10px;
+}
+
+.ability-scores-subtitle {
+    font-family: var(--font-elegant);
+    font-size: 1.2rem;
+    color: var(--color-rich-brown);
+    font-style: italic;
+    margin: 0;
+}
+
+.ability-scores-content {
+    padding: 30px;
+}
+
+.score-method-section, .ability-scores-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--color-gold);
+    border-radius: 15px;
+    box-shadow: var(--shadow-inset);
+}
+
+.ability-scores-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 30px 30px;
+    border-top: 2px solid var(--color-gold);
+    background: linear-gradient(135deg, var(--color-aged-parchment) 0%, var(--color-dark-parchment) 100%);
+    border-radius: 0 0 20px 20px;
+}
+
+.ability-scores-btn {
+    padding: 15px 30px;
+    font-family: var(--font-elegant);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.ability-scores-btn--primary {
+    background: var(--color-gold);
+    color: var(--color-deep-brown);
+    border-color: var(--color-deep-brown);
+}
+
+.ability-scores-btn--primary:hover {
+    background: var(--color-bright-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.ability-scores-btn--secondary {
+    background: var(--color-silver);
+    color: var(--color-deep-brown);
+    border-color: var(--color-deep-brown);
+}
+
+.ability-scores-btn--secondary:hover {
+    background: var(--color-dark-silver);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(192, 192, 192, 0.4);
+}
+
+.ability-scores-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ability-scores-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsive Design for Ability Scores Modal */
+@media (max-width: 768px) {
+    .ability-scores-modal {
+        margin: 10px;
+        max-height: 85vh;
+    }
+    
+    .ability-scores-title {
+        font-size: 2rem;
+    }
+    
+    .ability-scores-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .ability-scores-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
 /* === PRINT STYLES === */
 @media print {
     .game-controls,

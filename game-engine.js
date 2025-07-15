@@ -5,6 +5,27 @@ class DragonlanceGame {
         this.characterData = null;
         this.adventureData = null;
         this.currentEntry = null;
+        this.playerCharacter = {
+            name: '',
+            race: null,
+            stats: {
+                strength: 15,
+                dexterity: 14,
+                constitution: 13,
+                intelligence: 12,
+                wisdom: 10,
+                charisma: 8
+            },
+            modifiers: {
+                strength: 2,
+                dexterity: 2,
+                constitution: 1,
+                intelligence: 1,
+                wisdom: 0,
+                charisma: -1
+            },
+            isComplete: false
+        };
         this.gameState = {
             species: null,
             class: null,
@@ -18,7 +39,8 @@ class DragonlanceGame {
             inBattle: false,
             currentBattleTrack: null,
             currentAmbientTrack: 0,
-            currentBattleTrackIndex: 0
+            currentBattleTrackIndex: 0,
+            characterCreated: false
         };
         
         // Music playlists
@@ -30,8 +52,8 @@ class DragonlanceGame {
         ];
         
         this.battlePlaylist = [
-            'assets/Music/Battle music/Battlemusic1.mp3',
-            'assets/Music/Battle music/Battlemusic2.mp3'
+            'assets/Music/Battle/Battlemusic1.mp3',
+            'assets/Music/Battle/Battlemusic2.mp3'
         ];
         
         // Audio elements for playlists
@@ -45,6 +67,8 @@ class DragonlanceGame {
         try {
             await this.loadGameData();
             this.setupEventListeners();
+            
+            // Start the game with the normal flow
             this.loadEntry(this.gameState.currentEntryId);
             
             // Music will auto-start when the audio element is ready (handled in setupEventListeners)
@@ -89,8 +113,483 @@ class DragonlanceGame {
         document.getElementById('roll-skill-check').addEventListener('click', () => this.rollSkillCheck());
         document.getElementById('skill-check-continue').addEventListener('click', () => this.continueFromSkillCheck());
         
+        // Character builder handlers
+        this.setupCharacterBuilderListeners();
+        
+        
         // Initialize music playlists
         this.initializeMusicPlaylists();
+    }
+
+    // === CHARACTER BUILDER METHODS ===
+    
+    showCharacterBuilder() {
+        console.log('🛠️ Showing character builder');
+        const modal = document.getElementById('character-builder-modal');
+        console.log('Modal element found:', modal);
+        console.log('Modal classes before:', modal.className);
+        modal.classList.remove('hidden');
+        console.log('Modal classes after:', modal.className);
+        
+        // Initialize character builder state
+        this.initializeCharacterBuilder();
+    }
+    
+    hideCharacterBuilder() {
+        const modal = document.getElementById('character-builder-modal');
+        modal.classList.add('hidden');
+    }
+    
+    initializeCharacterBuilder() {
+        console.log('🔧 Initializing character builder');
+        try {
+            // Reset name input (but keep if already set)
+            const nameInput = document.getElementById('character-name-input');
+            console.log('Name input element:', nameInput);
+            if (nameInput) {
+                nameInput.value = this.playerCharacter.name || '';
+            }
+            
+            // Update race selection display
+            this.updateRaceDisplay();
+            
+            // Update continue button state
+            this.updateContinueButtonState();
+        } catch (error) {
+            console.error('Error initializing character builder:', error);
+        }
+    }
+    
+    setupCharacterBuilderListeners() {
+        // Character name input validation
+        const nameInput = document.getElementById('character-name-input');
+        nameInput.addEventListener('input', () => this.validateCharacterName());
+        
+        // Race selection
+        document.getElementById('change-race-btn').addEventListener('click', () => this.openRaceSelection());
+        
+        // Character builder actions
+        document.getElementById('character-builder-reset').addEventListener('click', () => this.resetCharacterBuilder());
+        document.getElementById('character-builder-continue').addEventListener('click', () => this.finishCharacterCreation());
+        
+        // Ability scores modal listeners
+        this.setupAbilityScoresListeners();
+    }
+    
+    validateCharacterName() {
+        const nameInput = document.getElementById('character-name-input');
+        const validation = document.getElementById('name-validation');
+        const name = nameInput.value.trim();
+        
+        if (name.length === 0) {
+            validation.textContent = 'Character name is required';
+            validation.style.color = 'var(--color-crimson)';
+            this.playerCharacter.name = '';
+        } else if (name.length < 2) {
+            validation.textContent = 'Name must be at least 2 characters long';
+            validation.style.color = 'var(--color-crimson)';
+            this.playerCharacter.name = '';
+        } else if (name.length > 30) {
+            validation.textContent = 'Name must be less than 30 characters';
+            validation.style.color = 'var(--color-crimson)';
+            this.playerCharacter.name = '';
+        } else {
+            validation.textContent = '✓ Name looks good!';
+            validation.style.color = 'var(--color-gold)';
+            this.playerCharacter.name = name;
+        }
+        
+        this.updateContinueButtonState();
+    }
+    
+    openRaceSelection() {
+        // Hide character builder temporarily and show race selection
+        this.hideCharacterBuilder();
+        this.loadEntry('species_selection');
+    }
+    
+    updateRaceDisplay() {
+        const raceNameEl = document.getElementById('selected-race-name');
+        const raceSubtitleEl = document.getElementById('selected-race-subtitle');
+        const racePortraitEl = document.getElementById('selected-race-portrait');
+        
+        if (this.playerCharacter.race) {
+            const raceInfo = this.getRaceInfo(this.playerCharacter.race);
+            raceNameEl.textContent = this.playerCharacter.race;
+            raceSubtitleEl.textContent = raceInfo.subtitle;
+            racePortraitEl.src = raceInfo.image;
+            racePortraitEl.style.display = 'block';
+        } else {
+            raceNameEl.textContent = 'No Race Selected';
+            raceSubtitleEl.textContent = 'Choose your race to continue';
+            racePortraitEl.style.display = 'none';
+        }
+    }
+    
+    getRaceInfo(raceName) {
+        const raceData = {
+            'Human': {
+                image: 'assets/Images/HumanRace.png',
+                subtitle: 'The Ambitious Wanderers',
+                bonuses: { strength: 1, dexterity: 1, constitution: 1, intelligence: 1, wisdom: 1, charisma: 1 }
+            },
+            'Qualinesti Elf': {
+                image: 'assets/Images/Elf-QualinestiRace.png',
+                subtitle: 'The Woodland Speakers',
+                bonuses: { dexterity: 2, wisdom: 1 }
+            },
+            'Silvanesti Elf': {
+                image: 'assets/Images/Elf-SylvanestiRace.png',
+                subtitle: 'The Ancient Nobles',
+                bonuses: { dexterity: 2, intelligence: 1 }
+            },
+            'Hill Dwarf': {
+                image: 'assets/Images/HillDwarvesRace.png',
+                subtitle: 'The Merchant Craftsmen',
+                bonuses: { constitution: 2, wisdom: 1 }
+            },
+            'Mountain Dwarf': {
+                image: 'assets/Images/MountainDwarvesRace.png',
+                subtitle: 'The Forge Masters',
+                bonuses: { constitution: 2, strength: 2 }
+            },
+            'Kender': {
+                image: 'assets/Images/KenderRace.png',
+                subtitle: 'The Fearless Wanderers',
+                bonuses: { dexterity: 2, charisma: 1 }
+            },
+            'Gnome': {
+                image: 'assets/Images/GnomesRace.png',
+                subtitle: 'The Tinker Sages',
+                bonuses: { constitution: 1, intelligence: 2 }
+            }
+        };
+        
+        return raceData[raceName] || { image: '', subtitle: '', bonuses: {} };
+    }
+    
+    handleScoreMethodChange() {
+        const method = document.querySelector('input[name="score-method"]:checked').value;
+        
+        if (method === 'random') {
+            this.randomizeScores();
+        } else {
+            this.resetAbilityScores();
+        }
+    }
+    
+    randomizeScores() {
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        abilities.forEach(ability => {
+            // Roll 3d6 for each ability
+            const roll = this.rollDice(3, 6);
+            this.playerCharacter.stats[ability] = roll;
+            
+            // Update the select element
+            const select = document.getElementById(`${ability}-select`);
+            select.innerHTML = `<option value="${roll}" selected>${roll}</option>`;
+        });
+        
+        this.updateAbilityScores();
+    }
+    
+    resetAbilityScores() {
+        // Standard array values available for assignment
+        this.availableScores = [15, 14, 13, 12, 10, 8];
+        this.usedScores = [];
+        
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        // Reset all ability scores to default values
+        abilities.forEach(ability => {
+            this.playerCharacter.stats[ability] = 10; // Default value
+            this.playerCharacter.modifiers[ability] = 0; // Default modifier
+        });
+        
+        // Reset all select elements to blank state
+        this.updateAllAbilitySelects();
+        this.updateAbilityScores();
+    }
+    
+    updateAbilityScores() {
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        abilities.forEach(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            const value = parseInt(select.value);
+            this.playerCharacter.stats[ability] = value;
+            
+            // Calculate modifier
+            const modifier = Math.floor((value - 10) / 2);
+            this.playerCharacter.modifiers[ability] = modifier;
+            
+            // Update modifier display
+            const modifierEl = document.getElementById(`${ability}-modifier`);
+            modifierEl.textContent = modifier >= 0 ? `+${modifier}` : `${modifier}`;
+        });
+        
+        this.updateContinueButtonState();
+    }
+    
+    rollDice(numDice, sides) {
+        let total = 0;
+        for (let i = 0; i < numDice; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+        }
+        return total;
+    }
+    
+    updateContinueButtonState() {
+        const continueBtn = document.getElementById('character-builder-continue');
+        const isValid = this.playerCharacter.name.length >= 2 && this.playerCharacter.race;
+        
+        continueBtn.disabled = !isValid;
+        
+        if (isValid) {
+            continueBtn.innerHTML = '<span class="btn-icon">👤</span>Continue to Class Selection';
+        } else {
+            continueBtn.innerHTML = '<span class="btn-icon">❌</span>Complete Name & Race First';
+        }
+    }
+    
+    resetCharacterBuilder() {
+        if (confirm('Are you sure you want to reset your character? All progress will be lost.')) {
+            this.playerCharacter = {
+                name: '',
+                race: null,
+                stats: {
+                    strength: 15,
+                    dexterity: 14,
+                    constitution: 13,
+                    intelligence: 12,
+                    wisdom: 10,
+                    charisma: 8
+                },
+                modifiers: {
+                    strength: 2,
+                    dexterity: 2,
+                    constitution: 1,
+                    intelligence: 1,
+                    wisdom: 0,
+                    charisma: -1
+                },
+                isComplete: false
+            };
+            
+            this.initializeCharacterBuilder();
+        }
+    }
+    
+    finishCharacterCreation() {
+        if (this.playerCharacter.name.length >= 2 && this.playerCharacter.race) {
+            this.playerCharacter.isComplete = true;
+            this.gameState.characterCreated = true;
+            
+            // Update character panel with the created character
+            this.updateCharacterDisplay();
+            
+            // Hide character builder and continue to class selection
+            this.hideCharacterBuilder();
+            this.loadEntry('class_selection'); // Continue with the existing flow
+        }
+    }
+    
+    // === ABILITY SCORES MODAL METHODS ===
+    
+    setupAbilityScoresListeners() {
+        // Ability score method selection
+        document.querySelectorAll('input[name="score-method"]').forEach(radio => {
+            radio.addEventListener('change', () => this.handleScoreMethodChange());
+        });
+        
+        // Ability score selects
+        ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].forEach(ability => {
+            document.getElementById(`${ability}-select`).addEventListener('change', () => this.updateAbilityScores());
+        });
+        
+        // Score action buttons
+        document.getElementById('randomize-scores-btn').addEventListener('click', () => this.randomizeScores());
+        document.getElementById('reset-scores-btn').addEventListener('click', () => this.resetAbilityScores());
+        
+        // Ability scores modal actions
+        document.getElementById('ability-scores-reset').addEventListener('click', () => this.resetAbilityScores());
+        document.getElementById('ability-scores-continue').addEventListener('click', () => this.finishAbilityScores());
+    }
+    
+    showAbilityScoresModal() {
+        console.log('🎲 Showing ability scores modal');
+        const modal = document.getElementById('ability-scores-modal');
+        modal.classList.remove('hidden');
+        
+        // Initialize ability scores
+        this.resetAbilityScores();
+    }
+    
+    hideAbilityScoresModal() {
+        const modal = document.getElementById('ability-scores-modal');
+        modal.classList.add('hidden');
+    }
+    
+    handleScoreMethodChange() {
+        const method = document.querySelector('input[name="score-method"]:checked').value;
+        
+        if (method === 'random') {
+            this.randomizeScores();
+        } else {
+            this.resetAbilityScores();
+        }
+    }
+    
+    randomizeScores() {
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        abilities.forEach(ability => {
+            // Roll 3d6 for each ability
+            const roll = this.rollDice(3, 6);
+            this.playerCharacter.stats[ability] = roll;
+            
+            // Update the select element
+            const select = document.getElementById(`${ability}-select`);
+            select.innerHTML = `<option value="${roll}" selected>${roll}</option>`;
+        });
+        
+        this.updateAbilityScores();
+    }
+    
+    resetAbilityScores() {
+        // Standard array values available for assignment
+        this.availableScores = [15, 14, 13, 12, 10, 8];
+        this.usedScores = [];
+        
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        // Reset all ability scores to default values
+        abilities.forEach(ability => {
+            this.playerCharacter.stats[ability] = 10; // Default value
+            this.playerCharacter.modifiers[ability] = 0; // Default modifier
+        });
+        
+        // Reset all select elements to blank state
+        this.updateAllAbilitySelects();
+        this.updateAbilityScores();
+    }
+    
+    updateAllAbilitySelects() {
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        // Collect currently selected values
+        const selectedValues = [];
+        abilities.forEach(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            if (select.value) {
+                selectedValues.push(parseInt(select.value));
+            }
+        });
+        
+        // Update available scores
+        this.usedScores = selectedValues;
+        this.availableScores = [15, 14, 13, 12, 10, 8].filter(score => !this.usedScores.includes(score));
+        
+        abilities.forEach(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            const currentValue = select.value;
+            
+            // Clear the select
+            select.innerHTML = '';
+            
+            // Add blank option
+            const blankOption = document.createElement('option');
+            blankOption.value = '';
+            blankOption.textContent = 'Select...';
+            blankOption.selected = !currentValue;
+            select.appendChild(blankOption);
+            
+            // Add available scores
+            this.availableScores.forEach(score => {
+                const option = document.createElement('option');
+                option.value = score;
+                option.textContent = score;
+                select.appendChild(option);
+            });
+            
+            // Add currently selected score if it exists
+            if (currentValue) {
+                const option = document.createElement('option');
+                option.value = currentValue;
+                option.textContent = currentValue;
+                option.selected = true;
+                select.appendChild(option);
+            }
+        });
+    }
+    
+    updateAbilityScores() {
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        
+        abilities.forEach(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            const value = parseInt(select.value) || 10; // Default to 10 if no value selected
+            this.playerCharacter.stats[ability] = value;
+            
+            // Calculate modifier
+            const modifier = Math.floor((value - 10) / 2);
+            this.playerCharacter.modifiers[ability] = modifier;
+            
+            // Update modifier display
+            const modifierEl = document.getElementById(`${ability}-modifier`);
+            modifierEl.textContent = modifier >= 0 ? `+${modifier}` : `${modifier}`;
+        });
+        
+        // Update available scores for all selects when any score changes
+        this.updateAllAbilitySelects();
+    }
+    
+    finishAbilityScores() {
+        console.log('🎯 Finishing ability scores and starting adventure');
+        
+        // Validate that all ability scores are assigned
+        const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        const unassignedAbilities = [];
+        
+        abilities.forEach(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            if (!select.value) {
+                unassignedAbilities.push(ability.charAt(0).toUpperCase() + ability.slice(1));
+            }
+        });
+        
+        if (unassignedAbilities.length > 0) {
+            alert(`Please assign scores to all abilities. Missing: ${unassignedAbilities.join(', ')}`);
+            return;
+        }
+        
+        // Validate that all standard array values are used
+        const usedValues = abilities.map(ability => {
+            const select = document.getElementById(`${ability}-select`);
+            return parseInt(select.value);
+        }).sort((a, b) => b - a);
+        
+        const standardArray = [15, 14, 13, 12, 10, 8];
+        const usedStandardArray = usedValues.filter(value => standardArray.includes(value)).sort((a, b) => b - a);
+        
+        if (JSON.stringify(usedStandardArray) !== JSON.stringify(standardArray)) {
+            alert('Please use each standard array value (15, 14, 13, 12, 10, 8) exactly once.');
+            return;
+        }
+        
+        // Mark character as fully complete
+        this.playerCharacter.isComplete = true;
+        this.gameState.characterCreated = true;
+        
+        // Update character display
+        this.updateCharacterDisplay();
+        
+        // Hide ability scores modal
+        this.hideAbilityScoresModal();
+        
+        // Start the adventure
+        this.loadEntry('1');
     }
 
     initializeMusicPlaylists() {
@@ -224,9 +723,16 @@ class DragonlanceGame {
         // Update entry title and narrative
         document.getElementById('entry-title').textContent = this.currentEntry.title;
         
-        // Display main narrative
+        // Display main narrative with character name templating
         const narrativeElement = document.getElementById('entry-narrative');
-        narrativeElement.innerHTML = `<p>${this.currentEntry.narrative}</p>`;
+        let narrativeText = this.currentEntry.narrative;
+        
+        // Replace ${characterData.name} with actual character name
+        if (this.playerCharacter.name) {
+            narrativeText = narrativeText.replace(/\$\{characterData\.name\}/g, this.playerCharacter.name);
+        }
+        
+        narrativeElement.innerHTML = `<p>${narrativeText}</p>`;
         
         // Add narrative continuation if present
         if (this.currentEntry.narrative_continuation) {
@@ -239,8 +745,14 @@ class DragonlanceGame {
         // Display choices
         this.displayChoices();
 
-        // Check for battle scenarios and manage music
-        this.checkForBattleScenario();
+        // Handle music - if entry has specific music, use it; otherwise check for battle scenarios
+        if (this.currentEntry.music) {
+            // Entry has specific music file defined - use it exclusively
+            this.handleEntryMusic();
+        } else {
+            // No specific music - use battle detection system
+            this.checkForBattleScenario();
+        }
 
         // Update current entry ID in game state
         this.gameState.currentEntryId = this.currentEntry.id;
@@ -605,18 +1117,25 @@ class DragonlanceGame {
             return;
         }
         
+        console.log('🏛️ Selecting race:', this.currentRaceSelection.name);
         gameLogger.info('Selecting race:', this.currentRaceSelection.name);
         gameLogger.info('Choice object:', this.currentRaceSelection.choice);
         
-        // Store the selected race
+        // Store the selected race in player character
+        this.playerCharacter.race = this.currentRaceSelection.name;
+        
+        // Store the selected race in game state as well
+        this.gameState.species = this.currentRaceSelection.name;
         this.selectedRace = this.currentRaceSelection.name;
         
         // Close modal
         this.closeRaceModal();
         
-        // Handle the choice
-        gameLogger.info('About to call handleChoice with:', this.currentRaceSelection.choice, this.currentRaceSelection.index);
-        this.handleChoice(this.currentRaceSelection.choice, this.currentRaceSelection.index);
+        // Show character builder instead of continuing to class selection
+        console.log('🛠️ About to show character builder after race selection');
+        this.showCharacterBuilder();
+        this.updateRaceDisplay();
+        this.updateContinueButtonState();
     }
 
     handleChoice(choice, index) {
@@ -651,10 +1170,19 @@ class DragonlanceGame {
         // Navigate to destination
         if (choice.destination) {
             gameLogger.info('Navigating to destination:', choice.destination);
-            setTimeout(() => {
-                gameLogger.info('Loading entry:', choice.destination);
-                this.loadEntry(choice.destination);
-            }, 500);
+            
+            // Check if we're finishing background selection (going to entry 100)
+            if (choice.destination === '100' && this.gameState.background) {
+                console.log('🎯 Background selection complete, showing ability scores modal');
+                setTimeout(() => {
+                    this.showAbilityScoresModal();
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    gameLogger.info('Loading entry:', choice.destination);
+                    this.loadEntry(choice.destination);
+                }, 500);
+            }
         } else {
             gameLogger.error('No destination found in choice:', choice);
         }
@@ -684,13 +1212,29 @@ class DragonlanceGame {
     }
 
     getSkillModifier(skill) {
-        // Simple modifier system - could be expanded based on character stats
-        return Math.floor(Math.random() * 4) + 1; // Random modifier 1-4 for now
+        // Map skills to ability scores
+        const skillAbilities = {
+            'Survival': 'wisdom',
+            'Perception': 'wisdom',
+            'Investigation': 'intelligence',
+            'Insight': 'wisdom',
+            'Deception': 'charisma',
+            'Persuasion': 'charisma',
+            'Stealth': 'dexterity',
+            'Strength': 'strength',
+            'Medicine': 'wisdom'
+        };
+        
+        const ability = skillAbilities[skill] || 'wisdom';
+        return this.playerCharacter.modifiers[ability] || 0;
     }
 
     updateCharacterDisplay() {
+        // Update character name display
+        document.getElementById('character-name').textContent = this.playerCharacter.name || 'Not Set';
+        
         // Update species display
-        document.getElementById('species').textContent = this.gameState.species || 'Not Selected';
+        document.getElementById('species').textContent = this.playerCharacter.race || this.gameState.species || 'Not Selected';
         
         // Enhanced class display with subclass details
         let classDisplay = this.gameState.class || 'Not Selected';
@@ -764,33 +1308,69 @@ class DragonlanceGame {
         }
     }
 
-    saveGame() {
+    async saveGame() {
         try {
             const saveData = {
                 gameState: this.gameState,
+                playerCharacter: this.playerCharacter,
                 timestamp: new Date().toISOString()
             };
-            localStorage.setItem('dragonlance-save', JSON.stringify(saveData));
-            alert('Game saved successfully!');
+            
+            // Check if we're in Electron environment
+            if (typeof require !== 'undefined' && window.process && window.process.type === 'renderer') {
+                const { ipcRenderer } = require('electron');
+                const result = await ipcRenderer.invoke('save-game-data', saveData);
+                if (result.success) {
+                    alert('Game saved successfully!');
+                } else if (!result.canceled) {
+                    alert('Error saving game: ' + (result.error || 'Unknown error'));
+                }
+            } else {
+                // Fallback to localStorage for web version
+                localStorage.setItem('dragonlance-save', JSON.stringify(saveData));
+                alert('Game saved successfully!');
+            }
         } catch (error) {
             console.error('Error saving game:', error);
             alert('Failed to save game.');
         }
     }
 
-    loadGame() {
+    async loadGame() {
         try {
-            const saveData = localStorage.getItem('dragonlance-save');
-            if (!saveData) {
-                alert('No saved game found.');
-                return;
+            let saveData = null;
+            
+            // Check if we're in Electron environment
+            if (typeof require !== 'undefined' && window.process && window.process.type === 'renderer') {
+                const { ipcRenderer } = require('electron');
+                const result = await ipcRenderer.invoke('load-game-data');
+                if (result.success) {
+                    saveData = result.data;
+                } else if (!result.canceled) {
+                    alert('Error loading game: ' + (result.error || 'Unknown error'));
+                    return;
+                } else {
+                    return; // User canceled
+                }
+            } else {
+                // Fallback to localStorage for web version
+                const storedData = localStorage.getItem('dragonlance-save');
+                if (!storedData) {
+                    alert('No saved game found.');
+                    return;
+                }
+                saveData = JSON.parse(storedData);
             }
 
-            const parsed = JSON.parse(saveData);
-            this.gameState = parsed.gameState;
-            this.updateCharacterDisplay();
-            this.loadEntry(this.gameState.currentEntryId);
-            alert('Game loaded successfully!');
+            if (saveData) {
+                this.gameState = saveData.gameState;
+                if (saveData.playerCharacter) {
+                    this.playerCharacter = saveData.playerCharacter;
+                }
+                this.updateCharacterDisplay();
+                this.loadEntry(this.gameState.currentEntryId);
+                alert('Game loaded successfully!');
+            }
         } catch (error) {
             console.error('Error loading game:', error);
             alert('Failed to load game.');
@@ -835,6 +1415,95 @@ class DragonlanceGame {
                 }
             }, 500);
         }
+    }
+    
+    handleEntryMusic() {
+        if (!this.currentEntry || !this.currentEntry.music || !this.gameState.musicEnabled) {
+            return;
+        }
+        
+        const musicFile = this.currentEntry.music;
+        console.log('🎵 Entry has music file:', musicFile);
+        
+        // Check if it's a mystery/investigation music file
+        if (musicFile.includes('Mystery')) {
+            console.log('🔍 Playing mystery music:', musicFile);
+            this.playMysteryMusic(musicFile);
+        }
+        // Check if it's a battle music file
+        else if (musicFile.includes('Battle')) {
+            console.log('⚔️ Playing battle music:', musicFile);
+            this.playBattleMusic(musicFile);
+        }
+        // For other music files, we could add ambient handling here
+    }
+    
+    playMysteryMusic(musicFile) {
+        // Stop current music
+        if (this.gameState.inBattle) {
+            this.endBattleMusic();
+        }
+        if (this.currentAmbientAudio && !this.currentAmbientAudio.paused) {
+            this.currentAmbientAudio.pause();
+        }
+        
+        // Create or reuse mystery audio element
+        if (!this.mysteryAudio) {
+            this.mysteryAudio = document.createElement('audio');
+            this.mysteryAudio.volume = 0.3;
+            this.mysteryAudio.addEventListener('ended', () => {
+                // Resume ambient music when mystery music ends
+                if (this.gameState.musicEnabled && this.currentAmbientAudio) {
+                    this.currentAmbientAudio.play().catch(error => {
+                        gameLogger.error('Could not resume ambient music after mystery:', error);
+                    });
+                }
+            });
+        }
+        
+        this.mysteryAudio.src = musicFile;
+        this.mysteryAudio.currentTime = 0;
+        this.mysteryAudio.play().catch(error => {
+            gameLogger.error('Could not play mystery music:', error);
+        });
+    }
+    
+    playBattleMusic(musicFile) {
+        if (!this.gameState.musicEnabled) return;
+        
+        // Stop current music
+        if (this.currentAmbientAudio && !this.currentAmbientAudio.paused) {
+            this.currentAmbientAudio.pause();
+        }
+        
+        // Stop mystery music if playing
+        if (this.mysteryAudio && !this.mysteryAudio.paused) {
+            this.mysteryAudio.pause();
+        }
+        
+        // Create or reuse specific battle audio element
+        if (!this.specificBattleAudio) {
+            this.specificBattleAudio = document.createElement('audio');
+            this.specificBattleAudio.volume = 0.4;
+            this.specificBattleAudio.addEventListener('ended', () => {
+                // Resume ambient music when specific battle music ends
+                if (this.gameState.musicEnabled && this.currentAmbientAudio) {
+                    this.currentAmbientAudio.play().catch(error => {
+                        gameLogger.error('Could not resume ambient music after battle:', error);
+                    });
+                }
+            });
+        }
+        
+        console.log('🎵 Playing specific battle music:', musicFile);
+        this.specificBattleAudio.src = musicFile;
+        this.specificBattleAudio.currentTime = 0;
+        this.specificBattleAudio.play().catch(error => {
+            gameLogger.error('Could not play specific battle music:', error);
+        });
+        
+        // Set battle state
+        this.gameState.inBattle = true;
     }
 
     checkForBattleScenario() {
@@ -908,6 +1577,12 @@ class DragonlanceGame {
             }
         });
 
+        // Stop specific battle music if playing
+        if (this.specificBattleAudio && !this.specificBattleAudio.paused) {
+            this.specificBattleAudio.pause();
+            this.specificBattleAudio.currentTime = 0;
+        }
+
         // Resume ambient music if enabled
         if (this.gameState.musicEnabled && this.currentAmbientAudio) {
             this.currentAmbientAudio.play().then(() => {
@@ -972,6 +1647,16 @@ class DragonlanceGame {
                 audio.pause();
             }
         });
+        
+        // Pause specific battle music
+        if (this.specificBattleAudio && !this.specificBattleAudio.paused) {
+            this.specificBattleAudio.pause();
+        }
+        
+        // Pause mystery music
+        if (this.mysteryAudio && !this.mysteryAudio.paused) {
+            this.mysteryAudio.pause();
+        }
         
         this.gameState.musicEnabled = false;
         this.updateMusicButton();

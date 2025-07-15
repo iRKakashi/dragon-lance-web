@@ -3,7 +3,8 @@
     "1": {
       "id": "1",
       "title": "The Crossroads of Solace",
-      "narrative": "The autumn wind carries the scent of dying leaves and distant smoke as you stand at the crossroads outside the village of Solace. The massive vallenwood trees stretch their ancient branches overhead, their golden leaves rustling with whispers of approaching winter. Behind you, the familiar sight of the Inn of the Last Home perches high in the branches, its warm light beckoning travelers to safety. Ahead, three paths diverge: one leads north toward the mysterious Darken Wood, another winds east toward the port city of Haven, and the third curves south toward the Plains of Dust. A weathered signpost bears carved warnings about bandits and worse dangers lurking in the wilderness. Your coinpurse jingles softly with your remaining silver, barely enough for a night's lodging, and your stomach growls with hunger. The choice of where to begin your adventure weighs heavily on your mind.",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "The autumn wind carries the scent of dying leaves and distant smoke as you, ${characterData.name}, stand at the crossroads outside the village of Solace, your boots crunching on the frost-kissed ground. The massive vallenwood trees stretch their ancient branches overhead like protective guardians, their golden leaves rustling with whispers of approaching winter and half-remembered secrets. Behind you, the familiar sight of the Inn of the Last Home perches high in the branches, its warm amber light spilling through diamond-paned windows and beckoning weary travelers to safety. Ahead, three paths diverge through the twilight mist: one leads north toward the mysterious Darken Wood where shadows dance between gnarled trunks, another winds east toward the bustling port city of Haven through rolling hills dotted with abandoned farmsteads, and the third curves south toward the endless Plains of Dust where ancient ruins hide forgotten treasures. A weathered signpost bears carved warnings about bandits and worse dangers lurking in the wilderness, its wood scarred by countless travelers' knives. Your coinpurse jingles softly with your remaining silver—barely enough for a night's lodging—and your stomach growls with hunger that gnaws at your concentration. The choice of where to begin your adventure weighs heavily on your mind as the first stars begin to appear in the darkening sky.",
       "choices": [
         {
           "text": "Head north toward Darken Wood, seeking ancient secrets",
@@ -26,7 +27,8 @@
     "2": {
       "id": "2",
       "title": "The Edge of Darken Wood",
-      "narrative": "The northern path leads you through increasingly sparse farmland until you reach the ominous border of Darken Wood. Ancient oaks and shadowtop trees form a wall of twisted branches and perpetual twilight that seems to swallow sound itself. Local legends speak of this place as cursed, where the undead walk freely and dark magic lingers from the Cataclysm. A faint path disappears into the gloom between two massive tree trunks carved with warning runes. As you pause at the forest's edge, you notice fresh footprints in the soft earth—someone or something has recently entered the woods. The temperature drops noticeably as shadows seem to reach toward you with grasping fingers. Your hand instinctively moves to your weapon as an unnatural silence falls over the area.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "The northern path leads you through increasingly sparse farmland where withered crops stand like skeletal sentinels until you reach the ominous border of Darken Wood. Ancient oaks and shadowtop trees form an impenetrable wall of twisted branches and perpetual twilight that seems to swallow sound itself, creating an oppressive silence that presses against your eardrums. Local legends speak of this place as cursed—a realm where the undead walk freely among the rotting undergrowth and dark magic lingers like poison from the Cataclysm's ancient wounds. A faint path, worn smooth by countless fearful footsteps, disappears into the gloom between two massive tree trunks carved with warning runes that seem to writhe in your peripheral vision. As you pause at the forest's edge, your breath misting in the suddenly frigid air, you notice fresh footprints in the soft earth—deep impressions suggesting someone or something heavy has recently entered the woods with purposeful stride. The temperature drops noticeably as shadows seem to reach toward you with grasping fingers, and dead leaves crackle underfoot despite the absence of wind. Your hand instinctively moves to your weapon as an unnatural silence falls over the area, broken only by the distant sound of something large moving through the underbrush.",
       "choices": [
         {
           "text": "Follow the footprints into Darken Wood immediately",
@@ -35,6 +37,7 @@
         {
           "text": "Make a Survival check (DC 15) to track the prints and learn more",
           "destination": "4",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Survival",
             "dc": 15,
@@ -55,19 +58,26 @@
     "3": {
       "id": "3",
       "title": "Into the Shadowed Depths",
-      "narrative": "Steeling your nerves, you step across the threshold into Darken Wood, and immediately feel the oppressive weight of ancient malevolence. The canopy above blocks out most of the daylight, creating a perpetual dusk that plays tricks on your eyes. Strange whispers seem to follow your footsteps, and branches creak ominously without any wind to move them. After what feels like hours of walking deeper into the forest, you come upon a clearing where the remains of an old watchtower jut from the earth like broken teeth. Scattered around its base are the bleached bones of various creatures, and a foul stench of decay hangs heavy in the air. Suddenly, three skeletal warriors emerge from behind the tower ruins, their empty eye sockets glowing with unholy light. They advance with rusted weapons raised, and you realize there's no avoiding this combat.",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "Steeling your nerves, you step across the threshold into Darken Wood, and immediately feel the oppressive weight of ancient malevolence pressing down upon your shoulders like a suffocating shroud. The canopy above blocks out most of the daylight, creating a perpetual dusk that plays tricks on your eyes—shapes that might be monsters lurk in every shadow, and phantom movements dance at the edge of your vision. Strange whispers seem to follow your footsteps, speaking in languages long dead, while branches creak ominously without any wind to move them, as if the very trees are alive and watching. After what feels like hours of walking deeper into the forest along a path carpeted with bones and rotting leaves, you come upon a clearing where the remains of an old watchtower jut from the earth like broken teeth, its stones blackened by ancient fire. Scattered around its base are the bleached bones of various creatures—some human, others less identifiable—and a foul stench of decay hangs heavy in the air, making your eyes water. Suddenly, with the grinding sound of bone against bone, three skeletal warriors emerge from behind the tower ruins, their empty eye sockets glowing with unholy green light that cuts through the gloom. They advance with rusted weapons raised, mail shirts hanging in tatters from their ribcages, and you realize with growing dread that there's no avoiding this combat.",
       "choices": [
         {
           "text": "Charge the skeletons head-on with a melee attack",
-          "destination": "15"
+          "destination": "15",
+          "music": "assets/Music/Battle/Battlemusic2.mp3",
+          "combat": true
         },
         {
           "text": "Make a Ranged attack if you have appropriate weapons",
-          "destination": "16"
+          "destination": "16",
+          "music": "assets/Music/Battle/Battlemusic1.mp3",
+          "combat": true
         },
         {
           "text": "Attempt to Turn Undead if you're a Cleric or Paladin",
-          "destination": "17"
+          "destination": "17",
+          "music": "assets/Music/Battle/Battlemusic2.mp3",
+          "combat": true
         },
         {
           "text": "Try to flee back the way you came",
@@ -78,7 +88,8 @@
     "4": {
       "id": "4",
       "title": "Reading the Signs",
-      "narrative": "Your keen eye examines the footprints carefully, and you notice several important details that others might miss. The prints belong to a humanoid wearing leather boots, but the gait is uneven, suggesting an injury or limp. More disturbing, you spot what appears to be dried blood on some of the leaves nearby, and the tracks seem to weave erratically rather than following the straight path. Based on the depth and spacing of the prints, you estimate they were made by someone of average height but carrying a heavy burden. Most concerning of all, you notice a second set of tracks—these belonging to something much larger with clawed feet that seems to be following the first set. The blood trail leads deeper into the woods, and you realize someone may be in grave danger.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Your keen eye examines the footprints carefully, crouching low to study each detail as the forest's oppressive silence presses around you. The prints belong to a humanoid wearing leather boots, but the gait is uneven and stumbling, suggesting a painful injury or severe limp that forces the walker to favor one leg. More disturbing, you spot what appears to be dried blood on some of the leaves nearby—dark crimson stains that have turned almost black in the perpetual twilight—and the tracks seem to weave erratically rather than following the straight path, as if the person was disoriented or fleeing in panic. Based on the depth and spacing of the prints, you estimate they were made by someone of average height but carrying a heavy burden that slowed their desperate flight. Most concerning of all, you notice a second set of tracks—these belonging to something much larger with clawed feet that seems to be following the first set with predatory patience, the impressions deep and deliberate. The blood trail leads deeper into the woods like a crimson thread through the darkness, and you realize with growing horror that someone may be in grave danger, hunted by something that leaves gouges in the earth with every step.",
       "choices": [
         {
           "text": "Follow the tracks quickly to try to help whoever is injured",
@@ -116,6 +127,7 @@
         {
           "text": "Make a Perception check (DC 14) to survey the scene first",
           "destination": "7",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Perception",
             "dc": 14,
@@ -171,7 +183,8 @@
     "7": {
       "id": "7",
       "title": "A Closer Look",
-      "narrative": "Your careful observation reveals important details that could save your life. Through the scattered debris, you can see that this wasn't a random bandit attack—the wagon was deliberately overturned and searched with methodical precision. More troubling, you spot several sets of footprints around the wagon that don't match normal bandits' boots, but rather appear to be made by military-style footwear. Hidden in the tall grass nearby, you catch a glimpse of metal that could be armor or weapons. The merchant trapped under the wheel seems genuine in his distress, but something about this entire scene feels like a carefully laid trap. Your instincts tell you that whoever did this might still be nearby, waiting for a good Samaritan to investigate.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Your careful observation reveals important details that could save your life as you scan the scene with the practiced eye of someone who has learned to survive in dangerous times. Through the scattered debris of fine cloth and broken pottery, you can see that this wasn't a random bandit attack—the wagon was deliberately overturned and searched with methodical precision, every container opened and examined rather than simply ransacked. More troubling, you spot several sets of footprints around the wagon that don't match the worn leather boots of common bandits, but rather appear to be made by military-style footwear with distinctive hobnailed soles that speak of professional soldiers or mercenaries. Hidden in the tall grass nearby, partially concealed by the overturned cargo, you catch a glimpse of polished metal that could be armor or weapons, reflecting the dim light like predatory eyes. The merchant trapped under the wheel seems genuine in his distress, his pain and fear clearly authentic, but something about this entire scene feels like a carefully laid trap designed to lure the unwary into a deadly ambush. Your instincts, honed by countless dangerous encounters, tell you that whoever did this might still be nearby, crouched in the grass with weapons ready, waiting for a good Samaritan to investigate.",
       "choices": [
         {
           "text": "Approach cautiously with weapons ready",
@@ -184,6 +197,7 @@
         {
           "text": "Make a Stealth check (DC 15) to circle around and observe",
           "destination": "20",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Stealth",
             "dc": 15,
@@ -281,7 +295,8 @@
     "11": {
       "id": "11",
       "title": "The Inn of the Last Home",
-      "narrative": "The familiar warmth of the Inn of the Last Home envelops you as you climb the wooden stairs carved into the mighty vallenwood tree. The common room buzzes with conversation from local farmers, traveling merchants, and the occasional adventurer sharing tales of distant lands. Otik Sandath, the portly innkeeper, greets you with a warm smile and the aroma of his famous spiced potatoes fills the air. Tika Waylan, now a seasoned woman but still beautiful, serves drinks with practiced efficiency while keeping a watchful eye on the rowdier patrons. In one corner, you notice a hooded figure sitting alone, occasionally glancing around nervously. Near the fireplace, a group of local farmers discuss troubling reports of increased bandit activity on the roads. The atmosphere is welcoming, but you sense undercurrents of worry and tension among the patrons.",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "The familiar warmth of the Inn of the Last Home envelops you, ${characterData.name}, like a comforting embrace as you climb the wooden stairs carved into the mighty vallenwood tree, each step worn smooth by countless travelers seeking refuge from the world's dangers. The common room buzzes with animated conversation from weather-beaten farmers, road-weary merchants, and the occasional scarred adventurer sharing tales of distant lands over tankards of ale that foam and sparkle in the firelight. Otik Sandath, the portly innkeeper with twinkling eyes and flour-dusted apron, greets you with a warm smile that crinkles his weathered face, while the irresistible aroma of his famous spiced potatoes fills the air with promises of comfort and sustenance. Tika Waylan, now a seasoned woman with laugh lines around her eyes but still possessing the beauty that once turned heads throughout Solace, serves drinks with practiced efficiency while keeping a watchful eye on the rowdier patrons who might disturb the peace. In one corner shrouded by shadows, you notice a hooded figure sitting alone at a scarred wooden table, occasionally glancing around nervously with quick, darting movements that suggest fear or guilt. Near the crackling fireplace where flames dance and cast shifting shadows on the stone hearth, a group of local farmers lean together in hushed conversation, their voices carrying troubling reports of increased bandit activity on the roads and whispered rumors of strange happenings in the surrounding countryside. The atmosphere is welcoming and warm, filled with the sounds of clinking mugs and friendly laughter, but you sense undercurrents of worry and tension among the patrons, like a storm cloud gathering on the horizon.",
       "choices": [
         {
           "text": "Approach the hooded figure to see if they need assistance",
@@ -298,6 +313,7 @@
         {
           "text": "Make an Investigation check (DC 12) to gather information",
           "destination": "18",
+          "music": "assets/Music/Mystery/Mystery2.mp3",
           "skill_check": {
             "skill": "Investigation",
             "dc": 12,
@@ -339,7 +355,8 @@
     "13": {
       "id": "13",
       "title": "Hidden Dangers",
-      "narrative": "Your cautious approach pays off as you take time to carefully observe the situation before acting. From your concealed position, you watch the area around the overturned wagon for several minutes. Your patience is rewarded when you spot movement in the tall grass—at least three figures in dark clothing are positioned around the wagon, clearly waiting in ambush. The trapped merchant appears to be genuine, making this situation even more despicable as the bandits are using his suffering as bait. You also notice that one of the hidden figures carries a crossbow, while another has a sword drawn. The storm is approaching rapidly, and the first drops of rain begin to fall. You realize that if you don't act soon, the merchant might die regardless of the danger.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Your cautious approach pays off as you take time to carefully observe the situation before acting, your heart hammering in your chest as you remain perfectly still behind a screen of tall grass. From your concealed position, you watch the area around the overturned wagon for several tense minutes, your eyes straining to detect any sign of movement or danger. Your patience is rewarded when you spot subtle movement in the tall grass—at least three figures in dark clothing are positioned around the wagon like patient spiders, their bodies low and weapons ready as they wait in ambush for any would-be rescuer. The trapped merchant appears to be genuine, his pain and desperation clearly authentic, making this situation even more despicable as the bandits are using his suffering as bait to lure innocent travelers to their doom. You also notice that one of the hidden figures carries a crossbow, its metal gleaming dully in the dim light, while another has a sword drawn and ready to strike. The storm is approaching rapidly, dark clouds rolling overhead like an advancing army, and the first drops of rain begin to fall, pattering against the leaves with increasing intensity. You realize with growing urgency that if you don't act soon, the merchant might die regardless of the danger, either from his injuries or from the bandits' impatience.",
       "choices": [
         {
           "text": "Attempt to sneak around behind the ambushers",
@@ -352,6 +369,7 @@
         {
           "text": "Make a Deception check (DC 16) to trick the bandits",
           "destination": "19",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Deception",
             "dc": 16,
@@ -385,6 +403,7 @@
         {
           "text": "Make an Insight check (DC 15) to determine if she's telling the truth",
           "destination": "18",
+          "music": "assets/Music/Mystery/Mystery2.mp3",
           "skill_check": {
             "skill": "Insight",
             "dc": 15,
@@ -397,7 +416,8 @@
     "15": {
       "id": "15",
       "title": "Combat Erupts",
-      "narrative": "The situation explodes into violence as combat becomes unavoidable. Whether you're facing skeletal warriors in Darken Wood, bandits on the road, or other threats, your survival depends on quick thinking and skilled fighting. The clash of steel rings through the air as you engage your enemies, knowing that defeat could mean death in these dangerous lands. Your training and instincts take over as you fight for your life, dodging attacks and striking back with all the skill you possess. The battle is fierce and desperate, with both sides fighting with the knowledge that only the victors will walk away. As the combat continues, you realize that this is likely just the first of many dangerous encounters you'll face in your adventures.",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "The situation explodes into violence as combat becomes unavoidable, the air suddenly filled with the harsh sounds of war cries and clashing steel. Whether you're facing skeletal warriors in the cursed depths of Darken Wood, desperate bandits on the muddy road, or other deadly threats, your survival depends on quick thinking and skilled fighting honed through countless hours of training. The clash of steel rings through the air like a death knell as you engage your enemies, knowing with crystal clarity that defeat could mean death in these dangerous lands where mercy is a luxury few can afford. Your training and instincts take over as you fight for your life, muscles moving with practiced precision as you dodge attacks and strike back with all the skill you possess, your weapon singing through the air in deadly arcs. The battle is fierce and desperate, sweat stinging your eyes and blood pounding in your ears, with both sides fighting with the knowledge that only the victors will walk away from this deadly dance. As the combat continues, weapons flashing in the dim light and death hanging in the balance, you realize that this is likely just the first of many dangerous encounters you'll face in your adventures across the war-torn lands of Krynn.",
       "choices": [
         {
           "text": "If you emerged victorious, search the fallen enemies for useful items",
@@ -518,7 +538,8 @@
     "20": {
       "id": "20",
       "title": "The Path Forward",
-      "narrative": "Your journey has reached a crucial juncture where the choices you make will significantly impact your future adventures. The experiences you've gained, the allies you've met, and the knowledge you've acquired have all prepared you for the greater challenges that lie ahead. Whether you've uncovered magical mysteries, helped those in need, or survived dangerous encounters, you now have a clearer understanding of the perils and opportunities that await in the world of Krynn. The road before you branches in multiple directions, each leading to different adventures and destinies. Your reputation is beginning to grow, and important figures are starting to take notice of your actions.",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "Your journey has reached a crucial juncture where the choices you make will significantly impact your future adventures and shape the very fabric of your destiny. The experiences you've gained through trial and hardship, the allies you've met in the most unlikely places, and the knowledge you've acquired through both triumph and near-disaster have all prepared you for the greater challenges that lie ahead like storm clouds gathering on the horizon. Whether you've uncovered magical mysteries that stretch back to the Age of Dreams, helped those in need and earned their grateful loyalty, or survived dangerous encounters that tested your courage and skill, you now have a clearer understanding of the perils and opportunities that await in the war-torn world of Krynn. The road before you branches in multiple directions like the roots of a great tree, each leading to different adventures and destinies that could make you a legend or lead you to an unmarked grave. Your reputation is beginning to grow among the tavern keepers and merchant guilds, and important figures are starting to take notice of your actions, whispering your name in the corridors of power.",
       "choices": [
         {
           "text": "Continue your current quest with renewed determination",

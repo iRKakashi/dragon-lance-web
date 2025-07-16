@@ -16,7 +16,7 @@ A comprehensive D&D 5e interactive text-based adventure game set in the legendar
 🏛️ **Advanced Character System**
 - **Species**: Human, Qualinesti Elf, Silvanesti Elf, Hill Dwarf, Mountain Dwarf, Kender, Gnome
 - **Classes**: Fighter, Wizard, Cleric, Sorcerer, Warlock, Rogue, Paladin
-- **Specializations**: Draconic Bloodline, Wild Magic, Moon Sorcerer, Great Wyrm Patron, and more
+- **Specializations**: Draconic Bloodline, Wild Magic, Lunar Sorcerer, Great Wyrm Patron, and more
 - **Backgrounds**: Knight of Solamnia, Mage of High Sorcery, Mercenary, Noble, Outlander
 - **Ability Scores**: Standard Array (15,14,13,12,10,8) with proper assignment validation
 - **Character Names**: Personalized adventure with name integration throughout the story

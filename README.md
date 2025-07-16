@@ -5,25 +5,29 @@ A comprehensive D&D 5e interactive text-based adventure game set in the legendar
 ## 🎮 Game Features
 
 🎯 **Complete Adventure System**
-- **300+ Story Entries** - Extensive branching narrative with meaningful choices
-- **Interactive Character Creation** - Choose race, class, and background with detailed artwork
-- **D&D 5e Mechanics** - Skill checks, experience points, and character progression
-- **Dynamic Music System** - 4 ambient tracks + 2 battle tracks with auto-rotation
+- **Extended Story Content** - 30+ entries with deep branching narratives and meaningful choices
+- **Interactive Character Creation** - Full D&D 5e character builder with name input, race selection, and ability score assignment
+- **Advanced D&D 5e Mechanics** - Skill checks, ability scores, modifiers, and character progression
+- **Enhanced Music System** - 4 ambient + 2 battle + 4 mystery tracks with context-aware switching
+- **Death & Retry System** - Challenging scenarios with failure consequences and retry options
 - **Rich Visual Experience** - Beautiful character artwork and ornate UI design
 - **Debug & Logging System** - Built-in debugging tools for development
 
-🏛️ **Character System**
+🏛️ **Advanced Character System**
 - **Species**: Human, Qualinesti Elf, Silvanesti Elf, Hill Dwarf, Mountain Dwarf, Kender, Gnome
 - **Classes**: Fighter, Wizard, Cleric, Sorcerer, Warlock, Rogue, Paladin
 - **Specializations**: Draconic Bloodline, Wild Magic, Moon Sorcerer, Great Wyrm Patron, and more
 - **Backgrounds**: Knight of Solamnia, Mage of High Sorcery, Mercenary, Noble, Outlander
+- **Ability Scores**: Standard Array (15,14,13,12,10,8) with proper assignment validation
+- **Character Names**: Personalized adventure with name integration throughout the story
 
 🎨 **Enhanced User Interface**
 - **Ornate Fantasy Design** - Dragonlance-themed with corner decorations and parchment styling
 - **Responsive Layout** - Works on desktop, tablet, and mobile devices
-- **Character Status Panel** - Real-time display of character progression
-- **Modal Dialogs** - Immersive skill checks and character selection
-- **Atmospheric Audio** - Dynamic music system with battle/ambient switching
+- **Character Status Panel** - Real-time display of character progression with ability scores
+- **Modal Dialogs** - Immersive skill checks, character creation, and ability score assignment
+- **Atmospheric Audio** - Dynamic music system with ambient/battle/mystery switching
+- **Death & Retry Mechanics** - Challenging scenarios with consequences and second chances
 
 ## 📋 System Requirements
 
@@ -35,7 +39,24 @@ A comprehensive D&D 5e interactive text-based adventure game set in the legendar
 
 ## 🚀 Installation & Setup
 
-### Step 1: Download the Game
+### Electron Desktop App (Recommended)
+
+**Windows Users:**
+1. Download the latest release from the GitHub releases page
+2. Navigate to the `dist/win-unpacked/` folder
+3. Run `Dragonlance Adventure.exe`
+4. The game will launch in full desktop mode with all features
+
+**Building from Source:**
+```bash
+git clone https://github.com/yourusername/dragonlance-dev.git
+cd dragonlance-dev
+npm install
+npm start  # Run in development mode
+npm run build  # Build for production
+```
+
+### Web Browser Version
 
 **Option A: Git Clone (Recommended)**
 ```bash
@@ -114,7 +135,10 @@ dragonlance-dev/
 ├── logger.js                           # Debug logging system
 ├── styles.css                          # Game styling & animations
 ├── character_creation_transition.json  # Character creation flow
-├── dragonlance_entries_1_20_fixed.json # Adventure story entries
+├── dragonlance_entries_1_20_fixed.json # Adventure story entries (entries 1-30)
+├── main.js                             # Electron main process
+├── electron-start.js                   # Electron renderer process
+├── package.json                        # Dependencies and build configuration
 ├── assets/
 │   ├── Images/                         # Character artwork & UI graphics
 │   │   ├── Human.png                   # Character race images
@@ -128,9 +152,17 @@ dragonlance-dev/
 │       │   ├── AMbientRoad.mp3
 │       │   ├── AbientSkyrim.mp3
 │       │   └── HarvestdawnAmbiance.mp3
-│       └── Battle music/               # Combat music (2 tracks)
-│           ├── Battlemusic1.mp3
-│           └── Battlemusic2.mp3
+│       ├── Battle/                     # Combat music (2 tracks)
+│       │   ├── Battlemusic1.mp3
+│       │   └── Battlemusic2.mp3
+│       └── Mystery/                    # Investigation music (4 tracks)
+│           ├── Mystery1.mp3
+│           ├── Mystery2.mp3
+│           ├── Mystery3.mp3
+│           └── Mystery4.mp3
+├── dist/                               # Built Electron application
+│   └── win-unpacked/                   # Windows executable
+│       └── Dragonlance Adventure.exe   # Main executable file
 └── README.md                           # This file
 ```
 
@@ -142,17 +174,20 @@ dragonlance-dev/
 3. **Begin Character Creation** - Follow the guided process to build your hero
 
 ### Character Creation Process
-1. **Choose Your Race** - Select from iconic Dragonlance species with unique artwork
-2. **Select Your Class** - Pick your adventuring profession and specialization
-3. **Choose Background** - Define your character's history and motivations
-4. **Review Your Character** - Confirm your choices and begin your adventure
+1. **Enter Your Name** - Personalize your character with a unique name
+2. **Choose Your Race** - Select from iconic Dragonlance species with unique artwork
+3. **Select Your Class** - Pick your adventuring profession and specialization
+4. **Choose Background** - Define your character's history and motivations
+5. **Assign Ability Scores** - Distribute the standard array (15,14,13,12,10,8) to your six abilities
+6. **Review Your Character** - Confirm your choices and begin your adventure
 
 ### Adventure Gameplay
 1. **Read Story Entries** - Immerse yourself in the rich Dragonlance narrative
 2. **Make Meaningful Choices** - Your decisions shape the story and character development
 3. **Handle Skill Checks** - Roll dice to overcome challenges and obstacles
-4. **Experience Dynamic Music** - Enjoy ambient tracks that shift to battle music during combat
-5. **Save Your Progress** - Use the save/load system to preserve your adventure
+4. **Experience Dynamic Music** - Enjoy ambient tracks that shift to battle/mystery music based on context
+5. **Face Death & Retry** - Some choices lead to deadly consequences, but you can retry from your last decision
+6. **Save Your Progress** - Use the save/load system to preserve your adventure
 
 ### Game Controls
 - **🎵 Music Button** - Toggle background music on/off, shows current track
@@ -168,7 +203,7 @@ dragonlance-dev/
 
 ## 🎵 Audio Experience
 
-The game features a dynamic music system with 6 total tracks:
+The game features a dynamic music system with 10 total tracks:
 
 ### Ambient Music (4 tracks)
 - **Background music** cycles through atmospheric tracks automatically
@@ -179,6 +214,12 @@ The game features a dynamic music system with 6 total tracks:
 - **Combat music** triggers during battle scenarios
 - **Auto-rotation** through battle tracks
 - **Higher volume** (40%) for battle intensity
+
+### Mystery Music (4 tracks)
+- **Investigation music** plays during mystery and decision-making scenes
+- **Context-aware** - automatically switches based on story content
+- **Four unique tracks** (Mystery1.mp3, Mystery2.mp3, Mystery3.mp3, Mystery4.mp3)
+- **Immersive atmosphere** for exploration and critical choices
 
 **Note:** Due to browser security, you must click the music button to enable audio when first starting the game.
 
@@ -307,9 +348,11 @@ python -m http.server 8003
 
 **Playlist Management**:
 - **Ambient Tracks**: 4 files in `assets/Music/Ambiance/`
-- **Battle Tracks**: 2 files in `assets/Music/Battle music/`
+- **Battle Tracks**: 2 files in `assets/Music/Battle/`
+- **Mystery Tracks**: 4 files in `assets/Music/Mystery/`
 - **Auto-rotation**: Seamless progression through all tracks
-- **Context switching**: Automatic ambient ↔ battle music transitions
+- **Context switching**: Automatic ambient ↔ battle ↔ mystery music transitions
+- **Smart switching**: Music changes based on story content and JSON entry specifications
 
 **Audio Implementation**:
 - **Dynamic creation**: Audio elements created programmatically
@@ -370,9 +413,11 @@ python -m http.server 8003
 **Adding Music Tracks**:
 1. Place MP3 files in appropriate folders:
    - `assets/Music/Ambiance/` for background music
-   - `assets/Music/Battle music/` for combat music
+   - `assets/Music/Battle/` for combat music
+   - `assets/Music/Mystery/` for investigation music
 2. Update playlist arrays in `game-engine.js`
-3. Test audio loading and transitions
+3. Reference new tracks in JSON story entries
+4. Test audio loading and transitions
 
 **Audio Requirements**:
 - **Format**: MP3 (most compatible)
@@ -417,8 +462,10 @@ gameLogger.clearLogs()
 ## 🔮 Future Enhancements
 
 **Planned Features**:
-- **Extended Story Content** - Target: 300+ entries
-- **Character Stats System** - Full D&D 5e ability scores
+- **Extended Story Content** - Continue expanding beyond 30 entries
+- **Haven Harbor Investigation** - Underwater exploration and dock intrigue
+- **Plains of Dust Adventure** - Desert survival and ancient burial complexes
+- **Void Shard Questline** - Three-part artifact collection with epic conclusion
 - **Inventory Management** - Item collection and usage
 - **Combat System** - Detailed battle mechanics
 - **Achievement System** - Track player accomplishments
@@ -479,6 +526,14 @@ We welcome contributions! Here's how to help:
 ## 🎲 Ready to Adventure?
 
 **Quick Start Reminder**:
+
+**Desktop App (Recommended)**:
+1. Download the release from GitHub
+2. Run `dist/win-unpacked/Dragonlance Adventure.exe`
+3. Click the music button to enable audio
+4. Begin your adventure in the world of Krynn!
+
+**Web Browser**:
 1. Download/clone the repository
 2. Run `python -m http.server 8000` in the project directory
 3. Open `http://localhost:8000` in your browser

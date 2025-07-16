@@ -7,7 +7,8 @@
       "Bash(npm install:*)",
       "Bash(npm start)",
       "Bash(npm run build-win:*)",
-      "Bash(npm run build-linux:*)"
+      "Bash(npm run build-linux:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

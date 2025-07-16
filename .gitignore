@@ -1,0 +1,4 @@
+# ✅ Node.js + Electron defaults
+node_modules/
+dist/
+*.log

@@ -17,8 +17,12 @@
     
     <div class="main-container">
         <header class="title-header">
-            <!-- Game Controls - Positioned to the right of title -->
-            <div class="game-controls-top">
+            <div class="corner top-left"></div>
+            <h1 class="main-title">Dragonlance</h1>
+            <h2 class="subtitle">Chronicles of Krynn</h2>
+            
+            <!-- Game Controls - Centered horizontally under title -->
+            <div class="game-controls-center">
                 <button id="restart-game" class="control-button control-button--restart" title="Restart Adventure">
                     <span class="button-icon">🔄</span>
                     <span class="button-text">Restart</span>
@@ -37,10 +41,6 @@
                     <span class="music-status-indicator"></span>
                 </button>
             </div>
-            
-            <h1 class="main-title">Dragonlance</h1>
-            <h2 class="subtitle">Chronicles of Krynn</h2>
-            <div class="title-ornament">⚔️ 🐉 ⚔️</div>
         </header>
 
         <main class="game-layout">
@@ -48,6 +48,13 @@
             <aside class="character-panel">
                 <h3 class="panel-title">Your Character</h3>
                 <div class="character-details">
+                    <div class="character-stat character-stat--name">
+                        <span class="stat-label">
+                            <span class="stat-icon">👤</span>
+                            Name:
+                        </span>
+                        <span id="character-name" class="stat-value">Not Set</span>
+                    </div>
                     <div class="character-stat character-stat--species">
                         <span class="stat-label">
                             <span class="stat-icon">🏛️</span>
@@ -85,6 +92,7 @@
 
             <!-- Main Story Book Area -->
             <section class="story-book">
+                <div class="corner top-left"></div>
                 <div class="story-entry">
                     <h2 id="entry-title" class="entry-title">Welcome to Krynn</h2>
                     
@@ -104,6 +112,172 @@
             </section>
         </main>
 
+    </div>
+
+    <!-- Character Builder Modal -->
+    <div id="character-builder-modal" class="modal-overlay character-builder-overlay hidden">
+        <div class="character-builder-modal">
+            <div class="character-builder-header">
+                <h2 class="character-builder-title">Create Your Hero</h2>
+                <p class="character-builder-subtitle">Forge your legend in the world of Krynn</p>
+            </div>
+            
+            <div class="character-builder-content">
+                <!-- Character Name Section -->
+                <div class="character-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">📝</span>
+                        Character Name
+                    </h3>
+                    <div class="name-input-container">
+                        <input type="text" id="character-name-input" class="character-name-input" 
+                               placeholder="Enter your character's name..." maxlength="30">
+                        <div class="name-validation-message" id="name-validation"></div>
+                    </div>
+                </div>
+                
+                <!-- Race Selection Display -->
+                <div class="character-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">🏛️</span>
+                        Selected Race
+                    </h3>
+                    <div class="selected-race-display" id="selected-race-display">
+                        <div class="race-info">
+                            <div class="race-portrait-container">
+                                <img id="selected-race-portrait" class="race-portrait" src="" alt="Race Portrait">
+                            </div>
+                            <div class="race-details">
+                                <h4 id="selected-race-name" class="race-name">No Race Selected</h4>
+                                <p id="selected-race-subtitle" class="race-subtitle">Choose your race to continue</p>
+                            </div>
+                        </div>
+                        <button id="change-race-btn" class="change-selection-btn">Change Race</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="character-builder-actions">
+                <button id="character-builder-reset" class="character-builder-btn character-builder-btn--secondary">
+                    <span class="btn-icon">🔄</span>
+                    Reset Character
+                </button>
+                <button id="character-builder-continue" class="character-builder-btn character-builder-btn--primary">
+                    <span class="btn-icon">👤</span>
+                    Continue to Class Selection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ability Scores Modal -->
+    <div id="ability-scores-modal" class="modal-overlay ability-scores-overlay hidden">
+        <div class="ability-scores-modal">
+            <div class="ability-scores-header">
+                <h2 class="ability-scores-title">Set Your Ability Scores</h2>
+                <p class="ability-scores-subtitle">These scores determine your character's capabilities</p>
+            </div>
+            
+            <div class="ability-scores-content">
+                <!-- Score Method Selection -->
+                <div class="score-method-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">🎲</span>
+                        Choose Method
+                    </h3>
+                    <div class="score-method-selection">
+                        <label class="score-method-label">
+                            <input type="radio" name="score-method" value="standard" checked>
+                            <span class="method-text">Standard Array (15, 14, 13, 12, 10, 8)</span>
+                        </label>
+                        <label class="score-method-label">
+                            <input type="radio" name="score-method" value="random">
+                            <span class="method-text">Random Roll (3d6 per ability)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Ability Scores Grid -->
+                <div class="ability-scores-section">
+                    <h3 class="section-title">
+                        <span class="section-icon">⚡</span>
+                        Assign Your Scores
+                    </h3>
+                    <div class="ability-scores-grid">
+                        <div class="ability-score">
+                            <label class="ability-label">Strength</label>
+                            <select id="strength-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="strength-modifier">+0</span>
+                        </div>
+                        
+                        <div class="ability-score">
+                            <label class="ability-label">Dexterity</label>
+                            <select id="dexterity-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="dexterity-modifier">+0</span>
+                        </div>
+                        
+                        <div class="ability-score">
+                            <label class="ability-label">Constitution</label>
+                            <select id="constitution-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="constitution-modifier">+0</span>
+                        </div>
+                        
+                        <div class="ability-score">
+                            <label class="ability-label">Intelligence</label>
+                            <select id="intelligence-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="intelligence-modifier">+0</span>
+                        </div>
+                        
+                        <div class="ability-score">
+                            <label class="ability-label">Wisdom</label>
+                            <select id="wisdom-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="wisdom-modifier">+0</span>
+                        </div>
+                        
+                        <div class="ability-score">
+                            <label class="ability-label">Charisma</label>
+                            <select id="charisma-select" class="ability-select">
+                                <option value="">Select...</option>
+                            </select>
+                            <span class="ability-modifier" id="charisma-modifier">+0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-actions">
+                        <button id="randomize-scores-btn" class="score-action-btn">
+                            <span class="btn-icon">🎲</span>
+                            Randomize Scores
+                        </button>
+                        <button id="reset-scores-btn" class="score-action-btn">
+                            <span class="btn-icon">🔄</span>
+                            Reset to Standard
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ability-scores-actions">
+                <button id="ability-scores-reset" class="ability-scores-btn ability-scores-btn--secondary">
+                    <span class="btn-icon">🔄</span>
+                    Reset Scores
+                </button>
+                <button id="ability-scores-continue" class="ability-scores-btn ability-scores-btn--primary">
+                    <span class="btn-icon">⚔️</span>
+                    Begin Adventure
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Skill Check Modal -->
@@ -146,21 +320,10 @@
         </div>
     </div>
 
-    <!-- Background Music -->
-    <audio id="background-music" loop>
-        <source src="assets/fantasy-ambient.mp3" type="audio/mpeg">
-        <!-- Fallback for browsers that don't support MP3 -->
-        <source src="assets/fantasy-ambient.ogg" type="audio/ogg">
-    </audio>
+    <!-- Audio elements will be created dynamically by the music system -->
 
-    <!-- Battle Music -->
-    <audio id="battle-music-1" loop>
-        <source src="assets/Battlemusic1.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="battle-music-2" loop>
-        <source src="assets/Battlemusic2.mp3" type="audio/mpeg">
-    </audio>
-
+    <script src="logger.js"></script>
     <script src="game-engine.js"></script>
+    <script src="electron-start.js"></script>
 </body>
 </html>

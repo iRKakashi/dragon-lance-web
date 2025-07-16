@@ -3,7 +3,8 @@
     "1": {
       "id": "1",
       "title": "The Crossroads of Solace",
-      "narrative": "The autumn wind carries the scent of dying leaves and distant smoke as you stand at the crossroads outside the village of Solace. The massive vallenwood trees stretch their ancient branches overhead, their golden leaves rustling with whispers of approaching winter. Behind you, the familiar sight of the Inn of the Last Home perches high in the branches, its warm light beckoning travelers to safety. Ahead, three paths diverge: one leads north toward the mysterious Darken Wood, another winds east toward the port city of Haven, and the third curves south toward the Plains of Dust. A weathered signpost bears carved warnings about bandits and worse dangers lurking in the wilderness. Your coinpurse jingles softly with your remaining silver, barely enough for a night's lodging, and your stomach growls with hunger. The choice of where to begin your adventure weighs heavily on your mind.",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "The autumn wind carries the scent of dying leaves and distant smoke as you, ${characterData.name}, stand at the crossroads outside the village of Solace, your boots crunching on the frost-kissed ground. The massive vallenwood trees stretch their ancient branches overhead like protective guardians, their golden leaves rustling with whispers of approaching winter and half-remembered secrets. Behind you, the familiar sight of the Inn of the Last Home perches high in the branches, its warm amber light spilling through diamond-paned windows and beckoning weary travelers to safety. Ahead, three paths diverge through the twilight mist: one leads north toward the mysterious Darken Wood where shadows dance between gnarled trunks, another winds east toward the bustling port city of Haven through rolling hills dotted with abandoned farmsteads, and the third curves south toward the endless Plains of Dust where ancient ruins hide forgotten treasures. A weathered signpost bears carved warnings about bandits and worse dangers lurking in the wilderness, its wood scarred by countless travelers' knives. Your coinpurse jingles softly with your remaining silver—barely enough for a night's lodging—and your stomach growls with hunger that gnaws at your concentration. The choice of where to begin your adventure weighs heavily on your mind as the first stars begin to appear in the darkening sky.",
       "choices": [
         {
           "text": "Head north toward Darken Wood, seeking ancient secrets",
@@ -26,7 +27,8 @@
     "2": {
       "id": "2",
       "title": "The Edge of Darken Wood",
-      "narrative": "The northern path leads you through increasingly sparse farmland until you reach the ominous border of Darken Wood. Ancient oaks and shadowtop trees form a wall of twisted branches and perpetual twilight that seems to swallow sound itself. Local legends speak of this place as cursed, where the undead walk freely and dark magic lingers from the Cataclysm. A faint path disappears into the gloom between two massive tree trunks carved with warning runes. As you pause at the forest's edge, you notice fresh footprints in the soft earth—someone or something has recently entered the woods. The temperature drops noticeably as shadows seem to reach toward you with grasping fingers. Your hand instinctively moves to your weapon as an unnatural silence falls over the area.",
+      "music": "assets/Music/Mystery/Mystery3.mp3",
+      "narrative": "The northern path leads you through increasingly sparse farmland where withered crops stand like skeletal sentinels until you reach the ominous border of Darken Wood. Ancient oaks and shadowtop trees form an impenetrable wall of twisted branches and perpetual twilight that seems to swallow sound itself, creating an oppressive silence that presses against your eardrums. Local legends speak of this place as cursed—a realm where the undead walk freely among the rotting undergrowth and dark magic lingers like poison from the Cataclysm's ancient wounds. A faint path, worn smooth by countless fearful footsteps, disappears into the gloom between two massive tree trunks carved with warning runes that seem to writhe in your peripheral vision. As you pause at the forest's edge, your breath misting in the suddenly frigid air, you notice fresh footprints in the soft earth—deep impressions suggesting someone or something heavy has recently entered the woods with purposeful stride. The temperature drops noticeably as shadows seem to reach toward you with grasping fingers, and dead leaves crackle underfoot despite the absence of wind. Your hand instinctively moves to your weapon as an unnatural silence falls over the area, broken only by the distant sound of something large moving through the underbrush.",
       "choices": [
         {
           "text": "Follow the footprints into Darken Wood immediately",
@@ -35,6 +37,7 @@
         {
           "text": "Make a Survival check (DC 15) to track the prints and learn more",
           "destination": "4",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Survival",
             "dc": 15,
@@ -55,19 +58,26 @@
     "3": {
       "id": "3",
       "title": "Into the Shadowed Depths",
-      "narrative": "Steeling your nerves, you step across the threshold into Darken Wood, and immediately feel the oppressive weight of ancient malevolence. The canopy above blocks out most of the daylight, creating a perpetual dusk that plays tricks on your eyes. Strange whispers seem to follow your footsteps, and branches creak ominously without any wind to move them. After what feels like hours of walking deeper into the forest, you come upon a clearing where the remains of an old watchtower jut from the earth like broken teeth. Scattered around its base are the bleached bones of various creatures, and a foul stench of decay hangs heavy in the air. Suddenly, three skeletal warriors emerge from behind the tower ruins, their empty eye sockets glowing with unholy light. They advance with rusted weapons raised, and you realize there's no avoiding this combat.",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "Steeling your nerves, you step across the threshold into Darken Wood, and immediately feel the oppressive weight of ancient malevolence pressing down upon your shoulders like a suffocating shroud. The canopy above blocks out most of the daylight, creating a perpetual dusk that plays tricks on your eyes—shapes that might be monsters lurk in every shadow, and phantom movements dance at the edge of your vision. Strange whispers seem to follow your footsteps, speaking in languages long dead, while branches creak ominously without any wind to move them, as if the very trees are alive and watching. After what feels like hours of walking deeper into the forest along a path carpeted with bones and rotting leaves, you come upon a clearing where the remains of an old watchtower jut from the earth like broken teeth, its stones blackened by ancient fire. Scattered around its base are the bleached bones of various creatures—some human, others less identifiable—and a foul stench of decay hangs heavy in the air, making your eyes water. Suddenly, with the grinding sound of bone against bone, three skeletal warriors emerge from behind the tower ruins, their empty eye sockets glowing with unholy green light that cuts through the gloom. They advance with rusted weapons raised, mail shirts hanging in tatters from their ribcages, and you realize with growing dread that there's no avoiding this combat.",
       "choices": [
         {
           "text": "Charge the skeletons head-on with a melee attack",
-          "destination": "15"
+          "destination": "15",
+          "music": "assets/Music/Battle/Battlemusic2.mp3",
+          "combat": true
         },
         {
           "text": "Make a Ranged attack if you have appropriate weapons",
-          "destination": "16"
+          "destination": "16",
+          "music": "assets/Music/Battle/Battlemusic1.mp3",
+          "combat": true
         },
         {
           "text": "Attempt to Turn Undead if you're a Cleric or Paladin",
-          "destination": "17"
+          "destination": "17",
+          "music": "assets/Music/Battle/Battlemusic2.mp3",
+          "combat": true
         },
         {
           "text": "Try to flee back the way you came",
@@ -78,7 +88,8 @@
     "4": {
       "id": "4",
       "title": "Reading the Signs",
-      "narrative": "Your keen eye examines the footprints carefully, and you notice several important details that others might miss. The prints belong to a humanoid wearing leather boots, but the gait is uneven, suggesting an injury or limp. More disturbing, you spot what appears to be dried blood on some of the leaves nearby, and the tracks seem to weave erratically rather than following the straight path. Based on the depth and spacing of the prints, you estimate they were made by someone of average height but carrying a heavy burden. Most concerning of all, you notice a second set of tracks—these belonging to something much larger with clawed feet that seems to be following the first set. The blood trail leads deeper into the woods, and you realize someone may be in grave danger.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Your keen eye examines the footprints carefully, crouching low to study each detail as the forest's oppressive silence presses around you. The prints belong to a humanoid wearing leather boots, but the gait is uneven and stumbling, suggesting a painful injury or severe limp that forces the walker to favor one leg. More disturbing, you spot what appears to be dried blood on some of the leaves nearby—dark crimson stains that have turned almost black in the perpetual twilight—and the tracks seem to weave erratically rather than following the straight path, as if the person was disoriented or fleeing in panic. Based on the depth and spacing of the prints, you estimate they were made by someone of average height but carrying a heavy burden that slowed their desperate flight. Most concerning of all, you notice a second set of tracks—these belonging to something much larger with clawed feet that seems to be following the first set with predatory patience, the impressions deep and deliberate. The blood trail leads deeper into the woods like a crimson thread through the darkness, and you realize with growing horror that someone may be in grave danger, hunted by something that leaves gouges in the earth with every step.",
       "choices": [
         {
           "text": "Follow the tracks quickly to try to help whoever is injured",
@@ -116,6 +127,7 @@
         {
           "text": "Make a Perception check (DC 14) to survey the scene first",
           "destination": "7",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Perception",
             "dc": 14,
@@ -171,7 +183,8 @@
     "7": {
       "id": "7",
       "title": "A Closer Look",
-      "narrative": "Your careful observation reveals important details that could save your life. Through the scattered debris, you can see that this wasn't a random bandit attack—the wagon was deliberately overturned and searched with methodical precision. More troubling, you spot several sets of footprints around the wagon that don't match normal bandits' boots, but rather appear to be made by military-style footwear. Hidden in the tall grass nearby, you catch a glimpse of metal that could be armor or weapons. The merchant trapped under the wheel seems genuine in his distress, but something about this entire scene feels like a carefully laid trap. Your instincts tell you that whoever did this might still be nearby, waiting for a good Samaritan to investigate.",
+      "music": "assets/Music/Mystery/Mystery4.mp3",
+      "narrative": "Your careful observation reveals important details that could save your life as you scan the scene with the practiced eye of someone who has learned to survive in dangerous times. Through the scattered debris of fine cloth and broken pottery, you can see that this wasn't a random bandit attack—the wagon was deliberately overturned and searched with methodical precision, every container opened and examined rather than simply ransacked. More troubling, you spot several sets of footprints around the wagon that don't match the worn leather boots of common bandits, but rather appear to be made by military-style footwear with distinctive hobnailed soles that speak of professional soldiers or mercenaries. Hidden in the tall grass nearby, partially concealed by the overturned cargo, you catch a glimpse of polished metal that could be armor or weapons, reflecting the dim light like predatory eyes. The merchant trapped under the wheel seems genuine in his distress, his pain and fear clearly authentic, but something about this entire scene feels like a carefully laid trap designed to lure the unwary into a deadly ambush. Your instincts, honed by countless dangerous encounters, tell you that whoever did this might still be nearby, crouched in the grass with weapons ready, waiting for a good Samaritan to investigate.",
       "choices": [
         {
           "text": "Approach cautiously with weapons ready",
@@ -184,6 +197,7 @@
         {
           "text": "Make a Stealth check (DC 15) to circle around and observe",
           "destination": "20",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
           "skill_check": {
             "skill": "Stealth",
             "dc": 15,
@@ -281,7 +295,8 @@
     "11": {
       "id": "11",
       "title": "The Inn of the Last Home",
-      "narrative": "The familiar warmth of the Inn of the Last Home envelops you as you climb the wooden stairs carved into the mighty vallenwood tree. The common room buzzes with conversation from local farmers, traveling merchants, and the occasional adventurer sharing tales of distant lands. Otik Sandath, the portly innkeeper, greets you with a warm smile and the aroma of his famous spiced potatoes fills the air. Tika Waylan, now a seasoned woman but still beautiful, serves drinks with practiced efficiency while keeping a watchful eye on the rowdier patrons. In one corner, you notice a hooded figure sitting alone, occasionally glancing around nervously. Near the fireplace, a group of local farmers discuss troubling reports of increased bandit activity on the roads. The atmosphere is welcoming, but you sense undercurrents of worry and tension among the patrons.",
+      "music": "assets/Music/Mystery/Mystery4.mp3",
+      "narrative": "The familiar warmth of the Inn of the Last Home envelops you, ${characterData.name}, like a comforting embrace as you climb the wooden stairs carved into the mighty vallenwood tree, each step worn smooth by countless travelers seeking refuge from the world's dangers. The common room buzzes with animated conversation from weather-beaten farmers, road-weary merchants, and the occasional scarred adventurer sharing tales of distant lands over tankards of ale that foam and sparkle in the firelight. Otik Sandath, the portly innkeeper with twinkling eyes and flour-dusted apron, greets you with a warm smile that crinkles his weathered face, while the irresistible aroma of his famous spiced potatoes fills the air with promises of comfort and sustenance. Tika Waylan, now a seasoned woman with laugh lines around her eyes but still possessing the beauty that once turned heads throughout Solace, serves drinks with practiced efficiency while keeping a watchful eye on the rowdier patrons who might disturb the peace. In one corner shrouded by shadows, you notice a hooded figure sitting alone at a scarred wooden table, occasionally glancing around nervously with quick, darting movements that suggest fear or guilt. Near the crackling fireplace where flames dance and cast shifting shadows on the stone hearth, a group of local farmers lean together in hushed conversation, their voices carrying troubling reports of increased bandit activity on the roads and whispered rumors of strange happenings in the surrounding countryside. The atmosphere is welcoming and warm, filled with the sounds of clinking mugs and friendly laughter, but you sense undercurrents of worry and tension among the patrons, like a storm cloud gathering on the horizon.",
       "choices": [
         {
           "text": "Approach the hooded figure to see if they need assistance",
@@ -298,6 +313,7 @@
         {
           "text": "Make an Investigation check (DC 12) to gather information",
           "destination": "18",
+          "music": "assets/Music/Mystery/Mystery2.mp3",
           "skill_check": {
             "skill": "Investigation",
             "dc": 12,
@@ -339,7 +355,8 @@
     "13": {
       "id": "13",
       "title": "Hidden Dangers",
-      "narrative": "Your cautious approach pays off as you take time to carefully observe the situation before acting. From your concealed position, you watch the area around the overturned wagon for several minutes. Your patience is rewarded when you spot movement in the tall grass—at least three figures in dark clothing are positioned around the wagon, clearly waiting in ambush. The trapped merchant appears to be genuine, making this situation even more despicable as the bandits are using his suffering as bait. You also notice that one of the hidden figures carries a crossbow, while another has a sword drawn. The storm is approaching rapidly, and the first drops of rain begin to fall. You realize that if you don't act soon, the merchant might die regardless of the danger.",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Your cautious approach pays off as you take time to carefully observe the situation before acting, your heart hammering in your chest as you remain perfectly still behind a screen of tall grass. From your concealed position, you watch the area around the overturned wagon for several tense minutes, your eyes straining to detect any sign of movement or danger. Your patience is rewarded when you spot subtle movement in the tall grass—at least three figures in dark clothing are positioned around the wagon like patient spiders, their bodies low and weapons ready as they wait in ambush for any would-be rescuer. The trapped merchant appears to be genuine, his pain and desperation clearly authentic, making this situation even more despicable as the bandits are using his suffering as bait to lure innocent travelers to their doom. You also notice that one of the hidden figures carries a crossbow, its metal gleaming dully in the dim light, while another has a sword drawn and ready to strike. The storm is approaching rapidly, dark clouds rolling overhead like an advancing army, and the first drops of rain begin to fall, pattering against the leaves with increasing intensity. You realize with growing urgency that if you don't act soon, the merchant might die regardless of the danger, either from his injuries or from the bandits' impatience.",
       "choices": [
         {
           "text": "Attempt to sneak around behind the ambushers",
@@ -352,6 +369,7 @@
         {
           "text": "Make a Deception check (DC 16) to trick the bandits",
           "destination": "19",
+          "music": "assets/Music/Mystery/Mystery3.mp3",
           "skill_check": {
             "skill": "Deception",
             "dc": 16,
@@ -385,6 +403,7 @@
         {
           "text": "Make an Insight check (DC 15) to determine if she's telling the truth",
           "destination": "18",
+          "music": "assets/Music/Mystery/Mystery2.mp3",
           "skill_check": {
             "skill": "Insight",
             "dc": 15,
@@ -397,7 +416,8 @@
     "15": {
       "id": "15",
       "title": "Combat Erupts",
-      "narrative": "The situation explodes into violence as combat becomes unavoidable. Whether you're facing skeletal warriors in Darken Wood, bandits on the road, or other threats, your survival depends on quick thinking and skilled fighting. The clash of steel rings through the air as you engage your enemies, knowing that defeat could mean death in these dangerous lands. Your training and instincts take over as you fight for your life, dodging attacks and striking back with all the skill you possess. The battle is fierce and desperate, with both sides fighting with the knowledge that only the victors will walk away. As the combat continues, you realize that this is likely just the first of many dangerous encounters you'll face in your adventures.",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "The situation explodes into violence as combat becomes unavoidable, the air suddenly filled with the harsh sounds of war cries and clashing steel. Whether you're facing skeletal warriors in the cursed depths of Darken Wood, desperate bandits on the muddy road, or other deadly threats, your survival depends on quick thinking and skilled fighting honed through countless hours of training. The clash of steel rings through the air like a death knell as you engage your enemies, knowing with crystal clarity that defeat could mean death in these dangerous lands where mercy is a luxury few can afford. Your training and instincts take over as you fight for your life, muscles moving with practiced precision as you dodge attacks and strike back with all the skill you possess, your weapon singing through the air in deadly arcs. The battle is fierce and desperate, sweat stinging your eyes and blood pounding in your ears, with both sides fighting with the knowledge that only the victors will walk away from this deadly dance. As the combat continues, weapons flashing in the dim light and death hanging in the balance, you realize that this is likely just the first of many dangerous encounters you'll face in your adventures across the war-torn lands of Krynn.",
       "choices": [
         {
           "text": "If you emerged victorious, search the fallen enemies for useful items",
@@ -424,7 +444,7 @@
       "choices": [
         {
           "text": "Investigate the ancient temple in Darken Wood",
-          "destination": "2"
+          "destination": "21"
         },
         {
           "text": "Explore the submerged ruin near Haven",
@@ -466,6 +486,7 @@
     "18": {
       "id": "18",
       "title": "Unexpected Consequences",
+      "music": "assets/Music/Mystery/Mystery3.mp3",
       "narrative": "Your actions have led to an unexpected and challenging situation that requires careful handling. Whether you attempted to flee from danger, carried an injured person to safety, or made a difficult choice under pressure, the consequences are now becoming apparent. The situation has become more complex than you initially realized, and you must adapt quickly to the changing circumstances. Your decisions have created new opportunities and dangers, and you find yourself facing challenges that will test both your combat skills and your judgment. The path forward is unclear, but you know that decisive action is needed to resolve the situation successfully.",
       "choices": [
         {
@@ -518,7 +539,8 @@
     "20": {
       "id": "20",
       "title": "The Path Forward",
-      "narrative": "Your journey has reached a crucial juncture where the choices you make will significantly impact your future adventures. The experiences you've gained, the allies you've met, and the knowledge you've acquired have all prepared you for the greater challenges that lie ahead. Whether you've uncovered magical mysteries, helped those in need, or survived dangerous encounters, you now have a clearer understanding of the perils and opportunities that await in the world of Krynn. The road before you branches in multiple directions, each leading to different adventures and destinies. Your reputation is beginning to grow, and important figures are starting to take notice of your actions.",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "Your journey has reached a crucial juncture where the choices you make will significantly impact your future adventures and shape the very fabric of your destiny. The experiences you've gained through trial and hardship, the allies you've met in the most unlikely places, and the knowledge you've acquired through both triumph and near-disaster have all prepared you for the greater challenges that lie ahead like storm clouds gathering on the horizon. Whether you've uncovered magical mysteries that stretch back to the Age of Dreams, helped those in need and earned their grateful loyalty, or survived dangerous encounters that tested your courage and skill, you now have a clearer understanding of the perils and opportunities that await in the war-torn world of Krynn. The road before you branches in multiple directions like the roots of a great tree, each leading to different adventures and destinies that could make you a legend or lead you to an unmarked grave. Your reputation is beginning to grow among the tavern keepers and merchant guilds, and important figures are starting to take notice of your actions, whispering your name in the corridors of power.",
       "choices": [
         {
           "text": "Continue your current quest with renewed determination",
@@ -535,6 +557,383 @@
         {
           "text": "Follow up on the most promising lead you've discovered",
           "destination": "14"
+        }
+      ]
+    },
+    "21": {
+      "id": "21",
+      "title": "The Temple of Forgotten Whispers",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "Following Silvana's directions, you, ${characterData.name}, venture deeper into Darken Wood until you discover the ancient temple she described, its weathered stone walls covered in writhing vines and glowing fungi that pulse with an otherworldly light. The structure rises from the forest floor like a monument to forgotten gods, its architecture predating the Cataclysm by centuries, with intricate carvings depicting scenes of celestial beings and arcane rituals that seem to move in your peripheral vision. As you approach, the crystal pendant given to you by Silvana begins to emit a soft, steady pulse of azure light, growing brighter with each step toward the massive stone doors that stand slightly ajar. Strange whispers echo from within the temple's depths—not quite words, but something that tugs at the edges of your consciousness like half-remembered dreams. The air around the temple shimmers with magical energy so thick you can taste it, metallic and sharp on your tongue, while shadows dance between the carved pillars despite the absence of any visible light source. Your {{race}} heritage grants you a natural sensitivity to magical auras, and you can sense that this place contains power beyond mortal comprehension—both wondrous and terrifying in equal measure.",
+      "choices": [
+        {
+          "text": "Push open the temple doors and enter boldly",
+          "destination": "22"
+        },
+        {
+          "text": "Make an Arcana check (DC 16) to study the magical auras first",
+          "destination": "23",
+          "music": "assets/Music/Mystery/Mystery2.mp3",
+          "skill_check": {
+            "skill": "Arcana",
+            "dc": 16,
+            "success": "23",
+            "failure": "22"
+          }
+        },
+        {
+          "text": "Circle the temple to look for alternative entrances",
+          "destination": "24"
+        },
+        {
+          "text": "Make a Religion check (DC 14) to identify the carved symbols",
+          "destination": "25",
+          "skill_check": {
+            "skill": "Religion",
+            "dc": 14,
+            "success": "25",
+            "failure": "22"
+          }
+        }
+      ]
+    },
+    "21_death": {
+      "id": "21_death",
+      "title": "Death in the Cursed Temple",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "The ancient ward you triggered floods your body with necromantic energy, and you feel your life force being drained away by the temple's dark guardians. Your vision blurs as spectral hands reach through the stone walls to claim your soul, and your final thought is that you should have been more careful in this place of forgotten power. The whispers grow louder as darkness claims you, speaking of trespassers who disturb the eternal rest...",
+      "choices": [
+        {
+          "text": "Return to your last decision and try again",
+          "destination": "21"
+        }
+      ]
+    },
+    "22": {
+      "id": "22",
+      "title": "The Hall of Echoing Voices",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "The temple doors swing open at your touch with surprising ease, revealing a vast hall filled with columns of black marble that stretch up into shadow-shrouded heights. The whispers grow louder as you step across the threshold, and you realize they're emanating from the walls themselves—ancient voices trapped in stone, speaking in tongues long lost to mortal memory. Your footsteps echo strangely in the space, creating harmonics that seem to awaken something deep within the temple's heart. At the far end of the hall, you can see a raised dais bathed in pale light, upon which rests a crystalline orb that pulses in rhythm with Silvana's pendant. However, the path to the dais is fraught with danger—pressure plates in the floor glow faintly with runic symbols, and you can see the remains of previous explorers who were not careful enough. The air grows thick with magical energy, and you sense that any wrong step could trigger ancient defenses designed to protect the temple's secrets from unworthy intruders.",
+      "choices": [
+        {
+          "text": "Carefully navigate the pressure plates using your best judgment",
+          "destination": "26"
+        },
+        {
+          "text": "Make a Perception check (DC 18) to find the safe path",
+          "destination": "27",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
+          "skill_check": {
+            "skill": "Perception",
+            "dc": 18,
+            "success": "27",
+            "failure": "22_death"
+          }
+        },
+        {
+          "text": "Use a ranged attack to test the plates before stepping",
+          "destination": "28"
+        },
+        {
+          "text": "Attempt to leap across the dangerous area (Athletics DC 15)",
+          "destination": "29",
+          "skill_check": {
+            "skill": "Athletics",
+            "dc": 15,
+            "success": "29",
+            "failure": "22_death"
+          }
+        }
+      ]
+    },
+    "22_death": {
+      "id": "22_death",
+      "title": "Crushed by Ancient Mechanisms",
+      "music": "assets/Music/Battle/Battlemusic2.mp3",
+      "narrative": "Your misstep triggers a pressure plate that awakens the temple's defensive mechanisms. Massive stone blocks crash down from the ceiling while spears thrust out from the walls, piercing your body in multiple places. The ancient magic animating these traps ensures they strike with deadly precision, and you collapse to the cold marble floor as your life ebbs away. The whispers in the walls seem to mock your failure as darkness closes in around you.",
+      "choices": [
+        {
+          "text": "Learn from your mistake and try again",
+          "destination": "22"
+        }
+      ]
+    },
+    "23": {
+      "id": "23",
+      "title": "Arcane Insights",
+      "music": "assets/Music/Mystery/Mystery3.mp3",
+      "narrative": "Your study of the magical auras reveals a complex web of enchantments woven throughout the temple structure—protective wards, scrying sensors, and temporal distortions that make the very air shimmer with power. You recognize some of the magical signatures as pre-Cataclysm high magic, the kind that required multiple archmages working in concert to create. The crystal pendant resonates with specific frequencies in the magical field, and you realize it's not just detecting magic—it's acting as a key to safely navigate the temple's defenses. Through your arcane knowledge, you discern that the temple was built to house something of immense power, something that the ancient mages believed was too dangerous to be destroyed but too valuable to be lost. The whispers you hear are not the voices of the dead, but echoes of the living magic itself, trying to communicate with those who possess the wisdom to understand. Armed with this knowledge, you feel more confident about exploring the temple's mysteries.",
+      "choices": [
+        {
+          "text": "Enter the temple, using the pendant to guide your steps",
+          "destination": "26"
+        },
+        {
+          "text": "Try to communicate with the magical whispers",
+          "destination": "27"
+        },
+        {
+          "text": "Search for additional magical items before proceeding",
+          "destination": "24"
+        },
+        {
+          "text": "Make a History check (DC 17) to recall more about pre-Cataclysm magic",
+          "destination": "28",
+          "skill_check": {
+            "skill": "History",
+            "dc": 17,
+            "success": "28",
+            "failure": "26"
+          }
+        }
+      ]
+    },
+    "24": {
+      "id": "24",
+      "title": "The Forgotten Entrance",
+      "music": "assets/Music/Mystery/Mystery4.mp3",
+      "narrative": "Your careful exploration around the temple's perimeter reveals a hidden passage partially concealed by overgrown thornbushes and fallen stones. The entrance is smaller than the main doors but appears to lead directly into the temple's inner sanctum, bypassing the dangerous main hall entirely. Ancient runes carved into the stone lintel glow faintly when your crystal pendant approaches, and you can feel cool air flowing from the passage, carrying with it the scent of old incense and something else—something that makes your skin crawl with primal fear. This appears to be a service entrance used by the temple's original caretakers, designed to allow access without triggering the main defenses. However, you notice disturbed earth and fresh scratches on the stone walls, suggesting that someone or something has used this passage recently. The whispers from the main temple seem fainter here, but you can hear different sounds emanating from the passage—the soft scraping of claws on stone and the distant sound of breathing that is definitely not human.",
+      "choices": [
+        {
+          "text": "Enter through the hidden passage immediately",
+          "destination": "29"
+        },
+        {
+          "text": "Make a Stealth check (DC 14) to sneak through quietly",
+          "destination": "30",
+          "music": "assets/Music/Mystery/Mystery4.mp3",
+          "skill_check": {
+            "skill": "Stealth",
+            "dc": 14,
+            "success": "30",
+            "failure": "24_death"
+          }
+        },
+        {
+          "text": "Use the main entrance instead—this seems too dangerous",
+          "destination": "22"
+        },
+        {
+          "text": "Make an Investigation check (DC 16) to examine the recent disturbances",
+          "destination": "25",
+          "skill_check": {
+            "skill": "Investigation",
+            "dc": 16,
+            "success": "25",
+            "failure": "29"
+          }
+        }
+      ]
+    },
+    "24_death": {
+      "id": "24_death",
+      "title": "Ambushed in the Dark",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "Your clumsy approach through the hidden passage alerts the temple's guardian—a massive shadow drake that has made its lair in the service tunnels. The creature's acidic breath melts through your armor and flesh before you can even draw your weapon, and its claws tear through your body with supernatural sharpness. As you collapse in the narrow passage, the last thing you see is the drake's glowing eyes as it prepares to consume your remains.",
+      "choices": [
+        {
+          "text": "Try to be more careful this time",
+          "destination": "24"
+        }
+      ]
+    },
+    "25": {
+      "id": "25",
+      "title": "Divine Revelations",
+      "music": "assets/Music/Mystery/Mystery3.mp3",
+      "narrative": "Your knowledge of religious iconography allows you to identify the carved symbols as belonging to the ancient worship of Solinari, the silver moon and god of good magic. The temple was built during the age when the three moons of magic were in perfect alignment, creating a confluence of power that the ancient mages sought to harness and preserve. The symbols tell a story of great sacrifice—high priests and archmages who gave their lives to contain something called the 'Void Shard,' a fragment of primordial chaos that threatened to unravel reality itself. The whispers you hear are not voices of the dead, but the eternal vigilance of the priests' spirits, forever bound to guard against the Shard's influence. Most importantly, you realize that the crystal pendant is not just a key—it's a test. Only those who approach with pure intentions and genuine need can safely navigate the temple's defenses. The knowledge fills you with both confidence and trepidation, for you now understand that what lies within could either save or damn the world.",
+      "choices": [
+        {
+          "text": "Enter the temple with reverence and caution",
+          "destination": "26"
+        },
+        {
+          "text": "Offer a prayer to Solinari before proceeding",
+          "destination": "27"
+        },
+        {
+          "text": "Consider whether you're worthy of this responsibility",
+          "destination": "28"
+        },
+        {
+          "text": "Make a Wisdom check (DC 15) to center yourself spiritually",
+          "destination": "30",
+          "skill_check": {
+            "skill": "Wisdom",
+            "dc": 15,
+            "success": "30",
+            "failure": "26"
+          }
+        }
+      ]
+    },
+    "26": {
+      "id": "26",
+      "title": "The Crystal's Resonance",
+      "music": "assets/Music/Mystery/Mystery2.mp3",
+      "narrative": "Following the crystal pendant's pulsing guidance, you navigate the temple's main hall with careful precision, stepping only where the pendant's light grows brighter and avoiding the darker areas where its glow dims. The ancient defenses seem to recognize your cautious approach, and the pressure plates remain inactive as you pass over them. The whispers in the walls grow more coherent as you advance, and you begin to make out words in ancient Solamnic: 'Worthy... seeker... the path... opens...' When you finally reach the raised dais, you see that the crystalline orb is actually a complex magical device—a containment vessel holding a swirling vortex of shadow and light. The Void Shard pulses within its prison, and you can feel its malevolent influence pressing against the mystical barriers. However, you also notice something else: the orb is cracked, and dark energy is slowly seeping through the fissures. The ancient protections are failing after centuries of constant strain, and soon the Shard will break free unless someone can repair or reinforce the containment. The pendant in your hand grows warm, and you realize it might be able to stabilize the prison—but doing so could have unexpected consequences.",
+      "choices": [
+        {
+          "text": "Use the pendant to reinforce the containment immediately",
+          "destination": "30"
+        },
+        {
+          "text": "Make an Arcana check (DC 19) to study the containment's structure",
+          "destination": "27",
+          "music": "assets/Music/Mystery/Mystery1.mp3",
+          "skill_check": {
+            "skill": "Arcana",
+            "dc": 19,
+            "success": "27",
+            "failure": "26_death"
+          }
+        },
+        {
+          "text": "Try to communicate with the Void Shard directly",
+          "destination": "28"
+        },
+        {
+          "text": "Retreat and seek Silvana's advice before proceeding",
+          "destination": "29"
+        }
+      ]
+    },
+    "26_death": {
+      "id": "26_death",
+      "title": "Consumed by the Void",
+      "music": "assets/Music/Battle/Battlemusic2.mp3",
+      "narrative": "Your clumsy manipulation of the containment vessel causes a catastrophic failure in the ancient magic. The Void Shard breaks free from its prison and immediately begins consuming everything around it, including you. Your body is torn apart at the molecular level as the primordial chaos unmakes your very existence. The last thing you experience is the terrifying sensation of your consciousness being scattered across infinite dimensions before eternal darkness claims you.",
+      "choices": [
+        {
+          "text": "Perhaps a more cautious approach would be better",
+          "destination": "26"
+        }
+      ]
+    },
+    "27": {
+      "id": "27",
+      "title": "The Keeper's Wisdom",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "Your prayer to Solinari and respectful approach to the temple's mysteries awakens something ancient and benevolent within the sacred space. The whispers coalesce into a single, clear voice speaking directly to your mind—the spirit of High Priest Valdris, the last keeper of the temple before the Cataclysm. 'Brave {{race}}, you have shown yourself worthy of the truth,' the voice intones with warmth and wisdom. 'The Void Shard contained here is but one of three such fragments scattered across Krynn. Another lies beneath the waters of Haven's harbor, and the third rests in the deep vaults beneath the Plains of Dust. They were separated to prevent their reunification, for together they could tear reality asunder.' The spirit explains that the containment vessels are indeed failing, weakened by the passage of time and the Cataclysm's residual effects. However, there is hope—the three crystal pendants Silvana carries can be used to create a new, stronger prison, but only if all three Shards are brought together in a place of great magical power. The spirit warns that others seek the Shards for evil purposes, and time is running short. As the communion ends, you feel blessed by divine wisdom and magical protection.",
+      "choices": [
+        {
+          "text": "Accept the quest to find all three Void Shards",
+          "destination": "30"
+        },
+        {
+          "text": "Ask about the nature of those seeking the Shards",
+          "destination": "28"
+        },
+        {
+          "text": "Inquire about the place of great magical power mentioned",
+          "destination": "29"
+        },
+        {
+          "text": "Request additional divine protection for the journey ahead",
+          "destination": "30"
+        }
+      ]
+    },
+    "28": {
+      "id": "28",
+      "title": "Ancient Memories Awakened",
+      "music": "assets/Music/Mystery/Mystery4.mp3",
+      "narrative": "Your deep knowledge of pre-Cataclysm history allows you to piece together the full significance of what you're witnessing. The temple was built during the reign of Istar, when the Kingpriest's growing arrogance had begun to corrupt the balance of magic itself. The Void Shards are not just fragments of chaos—they are pieces of the original wound in reality that the Kingpriest's blasphemous attempts to become a god had torn open. The ancient mages who built this temple were trying to prevent the Cataclysm, but arrived too late to stop it entirely. Instead, they managed to contain the worst of the damage, sealing away the Shards that would have consumed all of Krynn. The whispers you hear are not just guardian spirits, but the echoes of the final desperate spell cast by hundreds of mages who sacrificed their lives to save the world. This knowledge comes with a terrible understanding: if the Shards are ever reunited, they could finish what the Kingpriest started and destroy not just Krynn, but all of creation. The enemy Silvana mentioned is likely a cult of Istar loyalists who believe that completing the Kingpriest's work will restore their lost empire. With this realization, you understand that your quest is not just about collecting magical artifacts—it's about preventing the end of everything.",
+      "choices": [
+        {
+          "text": "Vow to prevent the Shards from being reunited",
+          "destination": "30"
+        },
+        {
+          "text": "Consider whether the Shards should be destroyed instead",
+          "destination": "29"
+        },
+        {
+          "text": "Make a Religion check (DC 18) to understand the cult's motivations",
+          "destination": "27",
+          "skill_check": {
+            "skill": "Religion",
+            "dc": 18,
+            "success": "27",
+            "failure": "30"
+          }
+        },
+        {
+          "text": "Seek immediate aid from the Orders of High Sorcery",
+          "destination": "29"
+        }
+      ]
+    },
+    "29": {
+      "id": "29",
+      "title": "The Shadow Drake's Lair",
+      "music": "assets/Music/Battle/Battlemusic1.mp3",
+      "narrative": "The hidden passage leads you through a maze of narrow tunnels carved from living rock, their walls covered in phosphorescent fungi that provide just enough light to see by. The sound of heavy breathing grows louder as you proceed, and soon you emerge into a circular chamber that has been converted into a lair. Piles of bones and treasure gleam in the dim light, and coiled among them is a massive shadow drake—a creature of living darkness with eyes like burning coals and breath that reeks of sulfur and decay. The beast has been feeding on the magical energies leaking from the temple's inner sanctum, growing stronger and more intelligent with each passing year. It notices your approach immediately and rises to its full, terrifying height, easily twelve feet from snout to tail. However, you notice something unexpected: the drake wears a collar of ancient silver, inscribed with binding runes that mark it as a guardian rather than a wild beast. The creature speaks in a voice like grinding stone: 'Another seeker comes to steal the Shard. You will feed my hunger like the others before you, unless...' The drake's eyes fix on your crystal pendant, and its expression shifts from hunger to something that might be hope. 'Unless you carry the Key of Binding and seek to fulfill the ancient compact.'",
+      "choices": [
+        {
+          "text": "Show the pendant and claim to honor the ancient compact",
+          "destination": "30"
+        },
+        {
+          "text": "Make a Deception check (DC 17) to pretend you know about the compact",
+          "destination": "27",
+          "music": "assets/Music/Mystery/Mystery3.mp3",
+          "skill_check": {
+            "skill": "Deception",
+            "dc": 17,
+            "success": "27",
+            "failure": "29_death"
+          }
+        },
+        {
+          "text": "Prepare for combat against the shadow drake",
+          "destination": "28"
+        },
+        {
+          "text": "Make an Insight check (DC 15) to gauge the drake's true intentions",
+          "destination": "26",
+          "skill_check": {
+            "skill": "Insight",
+            "dc": 15,
+            "success": "26",
+            "failure": "29_death"
+          }
+        }
+      ]
+    },
+    "29_death": {
+      "id": "29_death",
+      "title": "Dragon's Breakfast",
+      "music": "assets/Music/Battle/Battlemusic2.mp3",
+      "narrative": "The shadow drake's patience runs out, and it lunges forward with supernatural speed. Its acidic breath dissolves your armor and flesh while its claws tear through your body like parchment. You realize too late that this creature has been feeding on magical energy for decades, making it far more powerful than any ordinary drake. As consciousness fades, you join the countless bones littering the chamber floor, another failed seeker who underestimated the temple's guardians.",
+      "choices": [
+        {
+          "text": "Perhaps diplomacy would work better than confrontation",
+          "destination": "29"
+        }
+      ]
+    },
+    "30": {
+      "id": "30",
+      "title": "The Pact Renewed",
+      "music": "assets/Music/Mystery/Mystery1.mp3",
+      "narrative": "Your understanding of the ancient compact and respectful approach to the temple's guardians proves to be the key to success. The shadow drake, whose true name is Obsidian-Heart-of-the-Mountain, has been bound to guard the temple for over three centuries, waiting for someone worthy to renew the pact that keeps the Void Shard contained. When you present the crystal pendant with proper reverence, the drake's binding collar transforms into a silver torque of alliance, marking you as the temple's new guardian-designate. Obsidian explains that the three Void Shards are indeed failing in their containment, and that a cult calling itself the 'Heirs of Istar' has been systematically hunting for them. The cult is led by a fallen cleric named Mordeth Blackscale, who believes that reuniting the Shards will allow him to complete the Kingpriest's transformation and ascend to godhood himself. The drake has already driven off several cult infiltrators, but their numbers are growing. You now face a critical choice: you can take the Shard from its failing containment and risk its power corrupting you, or you can leave it here while you seek the other two Shards, risking that the cult will claim it in your absence. Either path is fraught with danger, but the fate of Krynn hangs in the balance.",
+      "choices": [
+        {
+          "text": "Take the Void Shard with you, accepting the risk of corruption",
+          "destination": "31"
+        },
+        {
+          "text": "Leave the Shard here and seek the other two first",
+          "destination": "32"
+        },
+        {
+          "text": "Ask Obsidian to accompany you on your quest",
+          "destination": "33"
+        },
+        {
+          "text": "Propose destroying this Shard to prevent the cult from claiming it",
+          "destination": "34"
         }
       ]
     }
